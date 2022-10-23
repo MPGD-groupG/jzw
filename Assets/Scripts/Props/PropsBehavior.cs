@@ -1,0 +1,49 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PropsBehavior : MonoBehaviour
+{
+
+    private PlayerController playerMovement;
+    private GameObject player;
+    private bool playerTouched;
+    public GameObject props;
+    private float curtTime = 0.0f;
+
+    public float timeBetweenConsume = 1f;
+    public int playerTouchedOnce = 0; // Number of times touched by player
+
+    public static PropsBehavior instance;
+    private int bonusScore = 10; // Bonus' score
+
+
+    private void Awake()
+    {
+        instance = this;
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerMovement = player.GetComponent<PlayerController>();
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject == player)
+        {
+            //Only for the 1st touched
+            //Debug.Log("touched bonus");
+            playerTouchedOnce++;
+            if (playerTouchedOnce == 1)
+            {
+                //HUD.instance.SetScore(bonusScore);
+                PropsManager.instance.SpawnProps(); // Spawn new bonus
+                Debug.Log("destroy");
+                Destroy(this.gameObject);
+            }
+
+        }
+
+    }
+
+
+}

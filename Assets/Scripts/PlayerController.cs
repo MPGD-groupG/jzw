@@ -16,6 +16,39 @@ public class PlayerController : MonoBehaviour
     private float turnSpeed = 14f;
     //public Animation animation;
 
+   
+
+    public float speedWalk = 6f;
+    public float speedRun = 12.0f;
+    public float speedSuper = 18.0f;
+
+    public bool isSpeedUp;  // Check if the player is running
+    public bool canSpeedUp; // Check if the player can run
+
+    public GameObject player;
+
+    public int speedUpConsume = 10; // Running cost 10 SP/s
+    public float timeBetweenConsume = 1f;
+    private float time;
+
+    private float superTimeVal = 10; // Superpower Duration
+    public bool gotSuperpower; // Superpower status
+
+    public GameObject visualEffect;
+
+    public static PlayerController instance;
+
+    private void Awake()
+    {
+        instance = this;
+        player = GameObject.FindGameObjectWithTag("Player");
+
+        canSpeedUp = true;  // At the beginning the player's stamina value is full
+
+
+
+    }
+
     private void Start()
     {
         count = 0;
@@ -43,7 +76,25 @@ public class PlayerController : MonoBehaviour
         {
             Rotating(moveValue.x, moveValue.y);
         }
-    }
+
+        if (gotSuperpower)
+        {
+            // Speed up by not consuming stamina value
+            //speed = speedSuper;   // Move with superpower speed
+            visualEffect.SetActive(true); // Character effects display
+
+            superTimeVal -= Time.deltaTime;
+            if (superTimeVal <= 0)  // Can only have superpowers during superpower time
+            {
+                visualEffect.SetActive(false);
+                gotSuperpower = false;
+                superTimeVal = 10;
+            }
+
+            time = time + Time.deltaTime;
+        }
+
+        }
     void Rotating(float h,float v)
     {
         Vector3 targetDir = new Vector3(h, 0, v);
@@ -58,7 +109,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.tag == "PickUp")
         {
-            other.gameObject.SetActive(false);
+            //other.gameObject.SetActive(false);
             count++;
             SetCountText();
         }
