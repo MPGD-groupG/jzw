@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class EnemyAI_Light : MonoBehaviour
 {
+    public Text winloseText;
     public Transform player;
     private NavMeshAgent agent;
     // Start is called before the first frame update
@@ -25,6 +28,15 @@ public class EnemyAI_Light : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             other.gameObject.SetActive(false);
+            winloseText.text = "Dead...";
+            Invoke("Restart", 2f);
+            //SceneManager.LoadScene(0);
         }
+    }
+
+    void Restart()
+    {
+        //reset game 
+        SceneManager.LoadScene(0);
     }
 }
