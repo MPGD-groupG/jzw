@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyAI : MonoBehaviour
+public class EnemyAI1 : MonoBehaviour
 {
     public NavMeshAgent agent;
 
@@ -21,7 +21,7 @@ public class EnemyAI : MonoBehaviour
 
     //Patroling还没整好
     public Vector3 walkPoint;
-    public bool walkPointSet;
+    public bool walkPointSet = false;
     public float walkPointRange;
 
     //Attacking
@@ -60,37 +60,63 @@ public class EnemyAI : MonoBehaviour
 
     private void Patroling()
     {
-        if (!walkPointSet) SearchWalkPoint();
-
-        if (walkPointSet)
-            agent.SetDestination(walkPoint);
-
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
 
-        if (distanceToWalkPoint.magnitude < 0.5f)
+        if (!walkPointSet)
+        {
+            Invoke(nameof(ChangeTarget), 2.0f);
+        }
+
+        if (walkPointSet)
+        {
+            Invoke(nameof(ChangeTargetB), 1.0f);
+            //agent.SetDestination(walkPoint);
+        }
+
+        if (distanceToWalkPoint.magnitude < 0.2f)
+        {
             walkPointSet = false;
-            
+            Invoke(nameof(ChangeTarget), 0.9f);
+        }
+
     }
 
-    private void SearchWalkPoint()
+   private void ChangeTarget()
     {
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
-        walkPoint = new Vector3(randomX, transform.position.y, randomZ);
+        walkPoint = new Vector3(player.position.x * 1.85f + randomX * 2.3f, transform.position.y, player.position.z * 1.35f + randomZ * 2.9f);
+        walkPointSet = true;
+        //agent.SetDestination(walkPoint);
+    }
+
+    private void ChangeTargetB()
+    {
+        agent.SetDestination(walkPoint);
+        walkPointSet = false;
+    }
+
+    /*private void SearchWalkPoint()
+    {
+        float randomZ = Random.Range(-walkPointRange, walkPointRange);
+        float randomX = Random.Range(-walkPointRange, walkPointRange);
+        walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
 
 
         if (Physics.Raycast(walkPoint, -transform.up, 2.0f, whatIsGround))
+        {
             walkPointSet = true;
+        }
         //Invoke(nameof(ChangeTarget), 1.0f);
 
-    }
+    }*/
 
     private void ChasePlayer()
     {
         agent.SetDestination(player.position);
     }
 
-    private void AttackPlayer()//还没做好扣血机制，所以暂时是射敌人出来
+    private void AttackPlayer()
     {
         agent.SetDestination(transform.position);
 
@@ -101,7 +127,7 @@ public class EnemyAI : MonoBehaviour
             //子弹力度
             Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
             rb.AddForce(transform.forward * 30f, ForceMode.Impulse);
-            rb.AddForce(transform.up * 0.0f, ForceMode.Impulse);
+            rb.AddForce(transform.up * 0.3f, ForceMode.Impulse);
 
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
@@ -143,10 +169,7 @@ public class EnemyAI : MonoBehaviour
         Destroy(gameObject);
     }
 
-    /*private void ChangeTarget()
-    {
-        walkPoint = new Vector3(randomX, transform.position.y, randomZ);
-    }*/
+
 
     /*public void ShowHPSlider()//for hp UI
     {

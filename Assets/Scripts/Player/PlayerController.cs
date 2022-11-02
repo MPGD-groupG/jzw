@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     public GameObject player;
     public GameObject visualEffect;
     public static PlayerController instance;
+    public float moveSpeed = 2f;
+    public float rotateSpeed = 2f;
 
     // area clamp
     public float minX = -9f;
@@ -52,6 +54,26 @@ public class PlayerController : MonoBehaviour
         SetCountText();
         //animation = GetComponent<Animation>();
     }
+
+    void Update()
+    {
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+        if (h != 0 || v != 0)
+        {
+            Vector3 targetDirection = new Vector3(h, 0, v);
+            float y = Camera.main.transform.rotation.eulerAngles.y;
+            //targetDirection = Quaternion.Euler(0, y, 0) * targetDirection;//这里控制移动朝向，有bug
+            targetDirection = Quaternion.Euler(0, 0, 0) * targetDirection;
+
+            transform.Translate(targetDirection * Time.deltaTime * moveSpeed, Space.World);
+        }
+        /*if (Input.GetKey(KeyCode.J))
+        {
+            transform.Rotate(-Vector3.up * Time.deltaTime * rotateSpeed);
+        }*/
+    }
+
     void OnMove(InputValue value)
     {
         moveValue = value.Get<Vector2>();

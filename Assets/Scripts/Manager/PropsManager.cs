@@ -44,7 +44,7 @@ public class PropsManager : MonoBehaviour
     void Spawn()
     {
         // Spawn this bonus at a random location
-        Instantiate(props, (new Vector3(Random.Range(-9f, 5f), 0.5f, Random.Range(-12f, 5f))), spawnPoint.rotation);
+        Instantiate(props, (new Vector3(Random.Range(-32f, 30f), 0.5f, Random.Range(-32f, 30))), spawnPoint.rotation);
 
     }
 
