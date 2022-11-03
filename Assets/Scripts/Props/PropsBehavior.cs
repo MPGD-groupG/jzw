@@ -38,7 +38,7 @@ public class PropsBehavior : MonoBehaviour
                 //HUD.instance.SetScore(bonusScore);
                 PropsManager.instance.SpawnProps(); // Spawn new bonus
                 Debug.Log("destroy");
-                Destroy(this.gameObject);
+                this.gameObject.SetActive(false);
             }
 
         }

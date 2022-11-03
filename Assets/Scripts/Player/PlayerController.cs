@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     // public Animation animation;
 
     // Buff for speed up
-    // check sp
+    // Check sp
     public bool isSpeedUp;  // Check if the player is running
     public bool canSpeedUp; // Check if the player can run
     public int speedUpConsume = 10; // Running cost 10 SP/s
@@ -38,6 +38,14 @@ public class PlayerController : MonoBehaviour
     private float time;
     public float superTimeVal = 10; // Superpower Duration
     public bool gotSuperpower; // Superpower status
+
+    // Check once trigger
+    //private int playerTouchedOnce = 0;
+
+    // Inventory
+    public GameObject myBag;
+    bool isOpen;
+
 
 
     private void Awake()
@@ -51,12 +59,14 @@ public class PlayerController : MonoBehaviour
     {
         count = 0;
         winloseText.text = "";
-        SetCountText();
+        //SetCountText();
         //animation = GetComponent<Animation>();
     }
 
     void Update()
     {
+        OpenMyBag();
+
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
         if (h != 0 || v != 0)
@@ -142,9 +152,10 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.tag == "PickUp")
         {
-            other.gameObject.SetActive(false);
+            other.gameObject.SetActive(false); 
             count++;
             SetCountText();
+
         }
         //check if player out of scene
         if (other.gameObject.tag == "Check")
@@ -153,6 +164,7 @@ public class PlayerController : MonoBehaviour
             Invoke("Restart", 2.0f);
         }
     }
+
 
     private void SetCountText()
     {
@@ -176,5 +188,16 @@ public class PlayerController : MonoBehaviour
     {
         //reset game 
         SceneManager.LoadScene(0);
+    }
+
+
+
+    void OpenMyBag()
+    {
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            isOpen = !isOpen;
+            myBag.SetActive(isOpen);
+        }
     }
 }

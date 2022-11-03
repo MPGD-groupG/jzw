@@ -15,7 +15,7 @@ public class PropsManager : MonoBehaviour
     public Transform spawnPoint;
     public float spawnTime = 2f;
     public int propsNumber = 10; // Initial number of bonus
-    public int propsGainNumber = 0; // Initial number of bonus
+    public int propsGainNumber = 5; // Initial number of bonus
 
     private PropsBehavior bonusBehavior;
     private float spawnTimeVal = 2; // Generation interval time
@@ -37,6 +37,7 @@ public class PropsManager : MonoBehaviour
             i++;
         }
 
+
     }
 
 
@@ -44,7 +45,7 @@ public class PropsManager : MonoBehaviour
     void Spawn()
     {
         // Spawn this bonus at a random location
-        Instantiate(props, (new Vector3(Random.Range(-32f, 30f), 0.5f, Random.Range(-32f, 30))), spawnPoint.rotation);
+        Instantiate(props, (new Vector3(Random.Range(-30f, 30f), 0.5f, Random.Range(-30f, 30))), spawnPoint.rotation);
 
     }
 
@@ -53,6 +54,7 @@ public class PropsManager : MonoBehaviour
         spawnNew = true;
         propsNumber--; // Current bonus number decrease 
         propsGainNumber++; // for player
+
     }
 
 
@@ -68,10 +70,11 @@ public class PropsManager : MonoBehaviour
                 propsNumber++;
                 spawnTimeVal = 2;
                 spawnNew = false;
-                // Spawn a new one after 60 seconds
+                // Spawn a new one after 2 seconds
 
             }
             //spawnNew = false;
+
         }
         HUD.instance.SetPropsNumber(propsGainNumber);
     }
