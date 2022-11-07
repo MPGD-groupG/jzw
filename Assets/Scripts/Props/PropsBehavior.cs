@@ -17,7 +17,6 @@ public class PropsBehavior : MonoBehaviour
     public static PropsBehavior instance;
     private int bonusScore = 10; // Bonus' score
 
-
     private void Awake()
     {
         instance = this;
@@ -36,9 +35,10 @@ public class PropsBehavior : MonoBehaviour
             if (playerTouchedOnce == 1)
             {
                 //HUD.instance.SetScore(bonusScore);
+                UIManager.instance.SetScoreText();
                 PropsManager.instance.SpawnProps(); // Spawn new bonus
                 Debug.Log("destroy");
-                this.gameObject.SetActive(false);
+                // this.gameObject.SetActive(false);
             }
 
         }

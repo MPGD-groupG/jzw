@@ -6,14 +6,21 @@ public class itemOnWorld : MonoBehaviour
 {
     public Item thisItem;
     public Inventory playerInventory;
+    private int playerTouchedOnce = 0;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log("crush");
-            AddNewItem();
-            Destroy(this.gameObject);
+            playerTouchedOnce++;
+            if (playerTouchedOnce == 1)
+            {
+                Debug.Log("crush");
+                AddNewItem();
+                Destroy(this.gameObject);
+            }
+
+            // Destroy(this.gameObject);
         }
     }
 
@@ -22,15 +29,16 @@ public class itemOnWorld : MonoBehaviour
         if (!playerInventory.itemList.Contains(thisItem))
         {
             playerInventory.itemList.Add(thisItem);
+            thisItem.itemHeld += 1;
             // InventoryManager.CreateNewItem(thisItem);
-/*            for (int i = 0; i < playerInventory.itemList.Count; i++)
-            {
-                if (playerInventory.itemList[i] == null)
-                {
-                    playerInventory.itemList[i] = thisItem;
-                    break;
-                }
-            }*/
+            /*            for (int i = 0; i < playerInventory.itemList.Count; i++)
+                        {
+                            if (playerInventory.itemList[i] == null)
+                            {
+                                playerInventory.itemList[i] = thisItem;
+                                break;
+                            }
+                        }*/
         }
         else
         {

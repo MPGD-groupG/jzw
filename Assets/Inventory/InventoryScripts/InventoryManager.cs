@@ -28,6 +28,12 @@ public class InventoryManager : MonoBehaviour
         instance.itemInfromation.text = "";
     }
 
+    public void OnStartNewGameEvent()
+    {
+        instance.slots.Clear();
+    }
+
+
     public static void UpdateItemInfo(string itemDescription)
     {
         instance.itemInfromation.text = itemDescription;
@@ -50,7 +56,7 @@ public class InventoryManager : MonoBehaviour
             if (instance.slotGrid.transform.childCount == 0)
                 break;
             Destroy(instance.slotGrid.transform.GetChild(i).gameObject);
-            //instance.slots.Clear();
+            instance.slots.Clear();
         }
 
         //重新生成对应myBag里面的物品的slot

@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
     public bool gotSuperpower; // Superpower status
 
     // Check once trigger
-    //private int playerTouchedOnce = 0;
+    private int playerTouchedOnce = 0;
 
     // Inventory
     public GameObject myBag;
@@ -148,13 +148,18 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
     }
 
-    void OnTriggerEnter(Collider other)
+/*    void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "PickUp")
         {
-            other.gameObject.SetActive(false); 
-            count++;
-            SetCountText();
+            // other.gameObject.SetActive(false); // 如果在这里setfalse了会导致道具栏里的道具没法生成
+            playerTouchedOnce++;
+            if (playerTouchedOnce == 1)
+            {
+                count++;
+                SetCountText();
+            }
+
 
         }
         //check if player out of scene
@@ -182,13 +187,13 @@ public class PlayerController : MonoBehaviour
     {
         gameObject.SetActive(false);
         Invoke("Restart", 2f);
-    }
+    }*/
 
-    void Restart()
+/*    void Restart()
     {
         //reset game 
         SceneManager.LoadScene(0);
-    }
+    }*/
 
 
 
