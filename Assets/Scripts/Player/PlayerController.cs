@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    public CharacterController controller;
     public GameObject player;
     public GameObject visualEffect;
     public static PlayerController instance;
@@ -41,6 +42,9 @@ public class PlayerController : MonoBehaviour
 
     // Check once trigger
     private int playerTouchedOnce = 0;
+    public float turnSmoothTime = 0.1f;
+    float turnSmoothVelocity;
+    public Transform cam;
 
     // Inventory
     public GameObject myBag;
@@ -67,16 +71,22 @@ public class PlayerController : MonoBehaviour
     {
         OpenMyBag();
 
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
-        if (h != 0 || v != 0)
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
+        Vector3 Direction = new Vector3(h, 0f, v).normalized;
+        if (Direction.magnitude>=0.1f)
         {
-            Vector3 targetDirection = new Vector3(h, 0, v);
-            float y = Camera.main.transform.rotation.eulerAngles.y;
-            //targetDirection = Quaternion.Euler(0, y, 0) * targetDirection;//这里控制移动朝向，有bug
-            targetDirection = Quaternion.Euler(0, 0, 0) * targetDirection;
+            float targetAngle = Mathf.Atan2(Direction.x, Direction.y)*Mathf.Rad2Deg+cam.eulerAngles.y;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity,turnSmoothTime);
 
-            transform.Translate(targetDirection * Time.deltaTime * moveSpeed, Space.World);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            //float y = Camera.main.transform.rotation.eulerAngles.y;
+            //targetDirection = Quaternion.Euler(0, y, 0) * targetDirection;//这里控制移动朝向，有bug
+            //targetDirection = Quaternion.Euler(0, 0, 0) * targetDirection;
+            //controller.Move(moveDir * moveSpeed * Time.deltaTime);
+            //transform.Translate(moveDir * Time.deltaTime * moveSpeed, Space.World);
+            //transform.Translate(moveDir.normalized * Time.deltaTime * moveSpeed, Space.World);
         }
         /*if (Input.GetKey(KeyCode.J))
         {
@@ -84,10 +94,10 @@ public class PlayerController : MonoBehaviour
         }*/
     }
 
-    void OnMove(InputValue value)
-    {
-        moveValue = value.Get<Vector2>();
-    }
+    //void OnMove(InputValue value)
+    //{
+    //    moveValue = value.Get<Vector2>();
+    //}
     //void Onfire(InputValue value)
     //{
     //    animation.Play();
@@ -98,36 +108,36 @@ public class PlayerController : MonoBehaviour
 
         //Clamp();
 
-        Vector3 movement = new Vector3(moveValue.x, 0.0f, moveValue.y);
+        //Vector3 movement = new Vector3(moveValue.x, 0.0f, moveValue.y);
         //GetComponent<Rigidbody>().AddForce(movement * speed * Time.fixedDeltaTime);
         //transform.position = new Vector3(moveValue.x*speed* Time.fixedDeltaTime, 0.0f, moveValue.y * speed * Time.fixedDeltaTime);
-        transform.position += new Vector3(moveValue.x, 0.0f, moveValue.y)*speed;
+        //transform.position += new Vector3(moveValue.x, 0.0f, moveValue.y)*speed;
         //transform.Rotate(new Vector3(moveValue.x, 0.0f, moveValue.y*90),Space.Self);
-        if(moveValue.x!=0||moveValue.y!=0)
-        {
-            Rotating(moveValue.x, moveValue.y);
-        }
+        //if(moveValue.x!=0||moveValue.y!=0)
+        //{
+        //    Rotating(moveValue.x, moveValue.y);
+        //}
 
-        if (gotSuperpower)
-        {
-            // Speed up by not consuming stamina value
-            speed = 0.3f;   // Move with superpower speed
-            visualEffect.SetActive(true); // Character effects display
+        //if (gotSuperpower)
+        //{
+        //    // Speed up by not consuming stamina value
+        //    speed = 0.3f;   // Move with superpower speed
+        //    visualEffect.SetActive(true); // Character effects display
 
-            superTimeVal -= Time.deltaTime;
-            if (superTimeVal <= 0)  // Can only have superpowers during superpower time
-            {
-                visualEffect.SetActive(false);
-                gotSuperpower = false;
-                superTimeVal = 10;
-            }
+        //    superTimeVal -= Time.deltaTime;
+        //    if (superTimeVal <= 0)  // Can only have superpowers during superpower time
+        //    {
+        //        visualEffect.SetActive(false);
+        //        gotSuperpower = false;
+        //        superTimeVal = 10;
+        //    }
 
-            time = time + Time.deltaTime;
-        }
-        else
-        {
-            speed = 0.1f;
-        }
+        //    time = time + Time.deltaTime;
+        //}
+        //else
+        //{
+        //    speed = 0.1f;
+        //}
 
         }
 
@@ -138,15 +148,15 @@ public class PlayerController : MonoBehaviour
         transform.position = new Vector3(xClamp, transform.position.y, zClamp);
     }*/
 
-    void Rotating(float h,float v)
-    {
-        Vector3 targetDir = new Vector3(h, 0, v);
+    //void Rotating(float h,float v)
+    //{
+    //    Vector3 targetDir = new Vector3(h, 0, v);
 
-        // facing
-        Quaternion targetRotation = Quaternion.LookRotation(targetDir, Vector3.up);
+    //    // facing
+    //    Quaternion targetRotation = Quaternion.LookRotation(targetDir, Vector3.up);
 
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
-    }
+    //    transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
+    //}
 
     void OnTriggerEnter(Collider other)
     {

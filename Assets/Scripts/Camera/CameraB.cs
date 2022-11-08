@@ -11,6 +11,8 @@ public class CameraB : MonoBehaviour
     public float scale_mul = 128;
     public float Yaxis_mul = 0.02f;
     private float turnSpeed = 14f;
+    public float Pitch { get; private set; }
+    public float Yaw { get; private set; }
     Vector3 setoff; 
     // Start is called before the first frame update
     void Start()
