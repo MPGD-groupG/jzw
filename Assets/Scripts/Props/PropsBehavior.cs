@@ -7,7 +7,6 @@ public class PropsBehavior : MonoBehaviour
 
     private PlayerController playerMovement;
     private GameObject player;
-    private bool playerTouched;
     public GameObject props;
     private float curtTime = 0.0f;
 
@@ -29,16 +28,13 @@ public class PropsBehavior : MonoBehaviour
     {
         if (other.gameObject == player)
         {
-            //Only for the 1st touched
-            //Debug.Log("touched bonus");
+            // Only for the 1st touched
             playerTouchedOnce++;
             if (playerTouchedOnce == 1)
             {
-                //HUD.instance.SetScore(bonusScore);
                 UIManager.instance.SetScoreText();
                 PropsManager.instance.SpawnProps(); // Spawn new bonus
                 Debug.Log("destroy");
-                // this.gameObject.SetActive(false);
             }
 
         }

@@ -16,49 +16,69 @@ public class UIManager : MonoBehaviour
     //time count UI
     public Text timerText;
 
-    //win UI
+    // Gameover UI
     public Text winloseText;  
     private bool isTimeOut = false;
+    private bool isDead = false;
+    private bool outOfScene = false;
 
+    // Player's score
     public Text scoreText;
     private int playerScore;
 
     public GameObject gameOverMenu;
-    private int winScore = 3; // 赢的分数
+    private int winScore = 5; // Score needed to get a win
 
 
     private void Awake()
     {
         instance = this;
-        gameOverMenu.SetActive(false); // 开始时菜单不显示
+        Time.timeScale = 1f;
+        gameOverMenu.SetActive(false); // Don't display game over menu at first
     }
 
     void Update()
     {
         Timer();
 
+        // Can use switch
         if (playerScore >= winScore)
         {
-            //Time.timeScale = 0; // stop all，bug是重新载入的时候玩家动不了了
-            //gameObject.SetActive(false); // 但这样的话 游戏结束时怪物还在动
-            gameOverMenu.SetActive(true); // Display the gameover menu
+            Time.timeScale = 0; // stop all
+            gameOverMenu.SetActive(true); // Display the game over menu
             winloseText.text = "You win";
         }else if (isTimeOut)
         {
-            //Time.timeScale = 0; // stop all
-            //gameObject.SetActive(false);
+            Time.timeScale = 0; // stop all
             gameOverMenu.SetActive(true);
-            winloseText.text = "You lose";
+            winloseText.text = "Time is up. You lose";
         }
-
+        else if (isDead)
+        {
+            Time.timeScale = 0; // stop all
+            gameOverMenu.SetActive(true);
+            winloseText.text = "You are dead. You lose";
+        }else if(outOfScene)
+        {
+            Time.timeScale = 0; // stop all
+            gameOverMenu.SetActive(true);
+            winloseText.text = "Out of scene. You lose";
+        }
     }
 
     public void Restart()
     {
-        //reset game when win
+        // Reset game
         SceneManager.LoadScene("SampleScene");
-        //Time.timeScale = 1f;
     }
+
+    public void Quit()
+    {
+        // Quit game
+        Application.Quit();
+
+    }
+
 
     private void Timer()
     {
@@ -82,12 +102,24 @@ public class UIManager : MonoBehaviour
 
     public void SetScoreText()
     {
-        //win check
-        // Change score
+        // Update score
         playerScore++;
         scoreText.text = "Score: " + playerScore.ToString();
 
     }
+
+    public void checkState()
+    {
+        // Player is dead
+        isDead = true;
+    }
+
+    public void checkScene()
+    {
+        // Player is out of scene
+        outOfScene = true;
+    }
+
 
     void AlreadyWin()//to avoid wrong win/lose check
     {

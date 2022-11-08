@@ -25,7 +25,6 @@ public class PropsManager : MonoBehaviour
 
     private void Awake()
     {
-
         instance = this;
         player = GameObject.FindGameObjectWithTag("Player");
         playerMovement = player.GetComponent<PlayerController>();
@@ -44,16 +43,16 @@ public class PropsManager : MonoBehaviour
 
     void Spawn()
     {
-        // Spawn this bonus at a random location
-        Instantiate(props, (new Vector3(Random.Range(-30f, 30f), 0.5f, Random.Range(-30f, 30))), spawnPoint.rotation);
+        // Spawn this prop at a random location
+        Instantiate(props, (new Vector3(Random.Range(-20f, 20f), 0.5f, Random.Range(-20f, 20))), spawnPoint.rotation);
 
     }
 
     public void SpawnProps()
     {
         spawnNew = true;
-        propsNumber--; // Current bonus number decrease 
-        propsGainNumber++; // for player
+        propsNumber--; // Current props number decrease 
+        propsGainNumber++; // Increase in props acquired by players
 
     }
 
@@ -79,12 +78,13 @@ public class PropsManager : MonoBehaviour
         HUD.instance.SetPropsNumber(propsGainNumber);
     }
 
-    public int getNumber()
-    {
-        return propsNumber;
-    }
+    /*    public int getNumber()
+        {
+            return propsNumber;
+        }*/
 
 
+    // Shortcut bar to use props
     public void OnBonusClicked()
     {
         if (propsGainNumber != 0)
@@ -92,7 +92,6 @@ public class PropsManager : MonoBehaviour
             playerMovement.gotSuperpower = true;
             propsGainNumber--;
         }
-
     }
 
 }

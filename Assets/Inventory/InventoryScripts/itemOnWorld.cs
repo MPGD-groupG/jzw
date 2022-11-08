@@ -15,12 +15,11 @@ public class itemOnWorld : MonoBehaviour
             playerTouchedOnce++;
             if (playerTouchedOnce == 1)
             {
-                Debug.Log("crush");
+                // Debug.Log("crush");
                 AddNewItem();
                 Destroy(this.gameObject);
             }
 
-            // Destroy(this.gameObject);
         }
     }
 
@@ -30,15 +29,6 @@ public class itemOnWorld : MonoBehaviour
         {
             playerInventory.itemList.Add(thisItem);
             thisItem.itemHeld += 1;
-            // InventoryManager.CreateNewItem(thisItem);
-            /*            for (int i = 0; i < playerInventory.itemList.Count; i++)
-                        {
-                            if (playerInventory.itemList[i] == null)
-                            {
-                                playerInventory.itemList[i] = thisItem;
-                                break;
-                            }
-                        }*/
         }
         else
         {

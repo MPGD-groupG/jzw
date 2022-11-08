@@ -13,6 +13,14 @@ public class PlayerHP : MonoBehaviour
     public int PlayerCurrentHP;
     private bool isServer = true;
 
+    public static PlayerHP instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
+
     private void Start()
     {
         PlayerCurrentHP = PlayerMaxHP;
@@ -27,9 +35,11 @@ public class PlayerHP : MonoBehaviour
         if (PlayerCurrentHP <= 0)
         {
             PlayerCurrentHP = 0;
-            this.gameObject.SetActive(false);
-            winloseText.text = "Dead....";
-            Invoke("Restart", 1.5f);
+            UIManager.instance.checkState();
+            /*            this.gameObject.SetActive(false);
+                        winloseText.text = "Dead....";
+                        Invoke("Restart", 1.5f);*/
+
         }
     }
     public void ShowHPSlider()

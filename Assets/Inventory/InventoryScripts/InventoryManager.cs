@@ -11,9 +11,9 @@ public class InventoryManager : MonoBehaviour
     public GameObject slotGrid;
     public Slot slotPrefab;
     //public GameObject emptySlot;
-    public Text itemInfromation;
+    public Text itemInformation;
 
-    public List<GameObject> slots = new List<GameObject>();//管理生成的18个slots
+    public List<GameObject> slots = new List<GameObject>(); // Manage the slots generated
 
     void Awake()
     {
@@ -25,18 +25,18 @@ public class InventoryManager : MonoBehaviour
     private void OnEnable()
     {
         RefreshItem();
-        instance.itemInfromation.text = "";
+        instance.itemInformation.text = ""; // Item information is empty at first
     }
 
     public void OnStartNewGameEvent()
     {
-        instance.slots.Clear();
+        instance.slots.Clear(); // Clear all slots when new game start
     }
 
 
     public static void UpdateItemInfo(string itemDescription)
     {
-        instance.itemInfromation.text = itemDescription;
+        instance.itemInformation.text = itemDescription;
     }
 
     public static void CreateNewItem(Item item)
@@ -50,7 +50,7 @@ public class InventoryManager : MonoBehaviour
 
     public static void RefreshItem()
     {
-        //循环删除slotGrid下的子集物体
+        // Loop to delete a subset of objects under slotGrid
         for (int i = 0; i < instance.slotGrid.transform.childCount; i++)
         {
             if (instance.slotGrid.transform.childCount == 0)
@@ -59,7 +59,7 @@ public class InventoryManager : MonoBehaviour
             instance.slots.Clear();
         }
 
-        //重新生成对应myBag里面的物品的slot
+        // Regenerate the slots corresponding to the items in myBag
         for (int i = 0; i < instance.myBag.itemList.Count; i++)
         {
             CreateNewItem(instance.myBag.itemList[i]);

@@ -148,52 +148,62 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
     }
 
-/*    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "PickUp")
-        {
-            // other.gameObject.SetActive(false); // 如果在这里setfalse了会导致道具栏里的道具没法生成
-            playerTouchedOnce++;
-            if (playerTouchedOnce == 1)
-            {
-                count++;
-                SetCountText();
-            }
 
-
-        }
-        //check if player out of scene
+        // Check if player out of scene
         if (other.gameObject.tag == "Check")
         {
-            winloseText.text = "Dead....";
-            Invoke("Restart", 2.0f);
+            UIManager.instance.checkScene();
         }
     }
 
-
-    private void SetCountText()
-    {
-        //win check
-        scoreText.text = "Score: " + count.ToString();
-        if(count >= numPickups)
+    /*    void OnTriggerEnter(Collider other)
         {
-            winloseText.text = "Win!";
-            Invoke("AlreadyWin", 0.0f);
-            
+            if (other.gameObject.tag == "PickUp")
+            {
+                // other.gameObject.SetActive(false); // If set false here, the items can't be generated in the prop bar.
+                playerTouchedOnce++;
+                if (playerTouchedOnce == 1)
+                {
+                    count++;
+                    SetCountText();
+                }
+
+
+            }
+            //check if player out of scene
+            if (other.gameObject.tag == "Check")
+            {
+                winloseText.text = "Dead....";
+                Invoke("Restart", 2.0f);
+            }
         }
-    }
 
-    void AlreadyWin()//to avoid wrong win/lose check
-    {
-        gameObject.SetActive(false);
-        Invoke("Restart", 2f);
-    }*/
 
-/*    void Restart()
-    {
-        //reset game 
-        SceneManager.LoadScene(0);
-    }*/
+        private void SetCountText()
+        {
+            //win check
+            scoreText.text = "Score: " + count.ToString();
+            if(count >= numPickups)
+            {
+                winloseText.text = "Win!";
+                Invoke("AlreadyWin", 0.0f);
+
+            }
+        }
+
+        void AlreadyWin()//to avoid wrong win/lose check
+        {
+            gameObject.SetActive(false);
+            Invoke("Restart", 2f);
+        }
+
+        /*    void Restart()
+            {
+                //reset game 
+                SceneManager.LoadScene(0);
+            }*/
 
 
 
