@@ -7,12 +7,14 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    public CharacterController controller;
+    
     public GameObject player;
     public GameObject visualEffect;
     public static PlayerController instance;
-    public float moveSpeed = 2f;
+    public float moveSpeed = 10f;
     public float rotateSpeed = 2f;
+    public float g = -9.81f;
+    Vector3 gVelocity;
 
     // area clamp
     public float minX = -9f;
@@ -61,6 +63,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        
         count = 0;
         winloseText.text = "";
         //SetCountText();
@@ -73,14 +76,19 @@ public class PlayerController : MonoBehaviour
 
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
-        Vector3 Direction = new Vector3(h, 0f, v).normalized;
-        if (Direction.magnitude>=0.1f)
+        Vector3 Direction = new Vector3(h, 0f, v);
+        
+        if (Direction.magnitude>0)
         {
-            float targetAngle = Mathf.Atan2(Direction.x, Direction.y)*Mathf.Rad2Deg+cam.eulerAngles.y;
+            float targetAngle = Mathf.Atan2(Direction.x, Direction.z)*Mathf.Rad2Deg+cam.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity,turnSmoothTime);
 
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            transform.Translate(moveDir*Time.deltaTime*moveSpeed,Space.World);
+            //controller.Move(moveDir * moveSpeed * Time.deltaTime);
+            //gVelocity.y+=g* Time.deltaTime;
+            //controller.Move(gVelocity * Time.deltaTime);
             //float y = Camera.main.transform.rotation.eulerAngles.y;
             //targetDirection = Quaternion.Euler(0, y, 0) * targetDirection;//这里控制移动朝向，有bug
             //targetDirection = Quaternion.Euler(0, 0, 0) * targetDirection;

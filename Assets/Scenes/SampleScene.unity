@@ -866,11 +866,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5db17bc8c59f7a54b8052086a64a9c30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 0}
   player: {fileID: 399503935}
   visualEffect: {fileID: 145985018}
-  moveSpeed: 2
+  moveSpeed: 10
   rotateSpeed: 2
+  g: -9.81
   minX: -9
   maxX: 9
   minZ: -9
@@ -1005,7 +1005,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 399503935}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 16.775, y: 0.5, z: -4.641711}
+  m_LocalPosition: {x: 16.775, y: 0.5, z: -9.71}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4133,11 +4133,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5db17bc8c59f7a54b8052086a64a9c30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 0}
   player: {fileID: 0}
   visualEffect: {fileID: 0}
   moveSpeed: 2
   rotateSpeed: 2
+  g: -9.81
   minX: -9
   maxX: 12
   minZ: -12
@@ -6962,7 +6962,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4631198912137463849
 Transform:
   m_ObjectHideFlags: 0
