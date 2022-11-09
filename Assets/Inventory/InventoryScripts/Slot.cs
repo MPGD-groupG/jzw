@@ -9,8 +9,8 @@ public class Slot : MonoBehaviour
     private GameObject player;
     public static Slot instance;
 
-    public int slotID;//空格ID 等于 物品ID
-    public Item slotItem; // 格子里的道具
+    public int slotID;// IDnumber
+    public Item slotItem; // Props in the grid
     public Image slotImage;
     public Text slotNum;
     public string slotInfo;

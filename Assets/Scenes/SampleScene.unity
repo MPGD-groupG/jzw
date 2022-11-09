@@ -5489,7 +5489,7 @@ MonoBehaviour:
   myBag: {fileID: 11400000, guid: 9591e1eaf5467f345ad20ba2c6dfd7c5, type: 2}
   slotGrid: {fileID: 1678782342}
   slotPrefab: {fileID: 126643733381183484, guid: 006233b3dee266c46a66ce16658a719f, type: 3}
-  itemInformation: {fileID: 0}
+  itemInformation: {fileID: 1360022567}
   slots: []
 --- !u!1 &1827767834
 GameObject:
@@ -6962,7 +6962,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4631198912137463849
 Transform:
   m_ObjectHideFlags: 0

@@ -85,6 +85,29 @@ public class PlayerController : MonoBehaviour
 
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+
+            if (gotSuperpower)
+            {
+                Debug.Log("got super power");
+                // Speed up by not consuming stamina value
+                moveSpeed = 25f;   // Move with superpower speed
+                visualEffect.SetActive(true); // Character effects display
+
+                superTimeVal -= Time.deltaTime;
+                if (superTimeVal <= 0)  // Can only have superpowers during superpower time
+                {
+                    visualEffect.SetActive(false);
+                    gotSuperpower = false;
+                    superTimeVal = 10;
+                }
+
+                time = time + Time.deltaTime;
+            }
+            else
+            {
+                moveSpeed = 10.0f;
+            }
+
             transform.Translate(moveDir*Time.deltaTime*moveSpeed,Space.World);
             //controller.Move(moveDir * moveSpeed * Time.deltaTime);
             //gVelocity.y+=g* Time.deltaTime;
