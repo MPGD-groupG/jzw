@@ -28,7 +28,6 @@ public class EnemyAI_Light : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             other.gameObject.SetActive(false);
-            winloseText.text = "Dead...";
             Invoke("Restart", 2f);
             //SceneManager.LoadScene(0);
         }

@@ -11,7 +11,7 @@ public class EnemyAI : MonoBehaviour
 
     public LayerMask whatIsGround, whatIsPlayer;
 
-    //public float health;//还没实装
+    //public float health;
 
     public int MaxHP = 100;
 
@@ -19,19 +19,19 @@ public class EnemyAI : MonoBehaviour
 
     public int CurrentHP;
 
-    //Patroling还没整好
+    //Patroling
     public Vector3 walkPoint;
-    public bool walkPointSet;
+    public bool walkPointSet = false;
     public float walkPointRange;
 
     //Attacking
-    public float timeBetweenAttacks;
-    bool alreadyAttacked;
+    public float Ainterval;
+    bool Attacked;
     public GameObject projectile;
 
     //States
     public float sightRange, attackRange;
-    public bool playerInSightRange, playerInAttackRange;
+    public bool InSightRange, InAttackRange;
 
 
 
@@ -49,70 +49,95 @@ public class EnemyAI : MonoBehaviour
     private void Update()
     {
         //Check for sight and attack range
-        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+        InSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+        InAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-        if (!playerInSightRange && !playerInAttackRange) Patroling();
-        if (playerInSightRange && !playerInAttackRange) ChasePlayer();
-        if (playerInAttackRange && playerInSightRange) AttackPlayer();
+        if (!InSightRange && !InAttackRange) Patroling();
+        if (InSightRange && !InAttackRange) ChasePlayer();
+        if (InAttackRange && InSightRange) AttackPlayer();
 
     }
 
     private void Patroling()
     {
-        if (!walkPointSet) SearchWalkPoint();
-
-        if (walkPointSet)
-            agent.SetDestination(walkPoint);
-
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
 
-        if (distanceToWalkPoint.magnitude < 0.5f)
+        if (!walkPointSet)
+        {
+            Invoke(nameof(ChangeTarget), 2.0f);
+        }
+
+        if (walkPointSet)
+        {
+            Invoke(nameof(ChangeTargetB), 1.0f);
+            //agent.SetDestination(walkPoint);
+        }
+
+        if (distanceToWalkPoint.magnitude < 0.2f)
+        {
             walkPointSet = false;
-            
+            Invoke(nameof(ChangeTarget), 0.9f);
+        }
+
     }
 
-    private void SearchWalkPoint()
+    private void ChangeTarget()
     {
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
-        walkPoint = new Vector3(randomX, transform.position.y, randomZ);
+        walkPoint = new Vector3(player.position.x * 1.85f + randomX * 2.3f, transform.position.y, player.position.z * 1.35f + randomZ * 2.9f);
+        walkPointSet = true;
+        //agent.SetDestination(walkPoint);
+    }
+
+    private void ChangeTargetB()
+    {
+        agent.SetDestination(walkPoint);
+        walkPointSet = false;
+    }
+
+    /*private void SearchWalkPoint()
+    {
+        float randomZ = Random.Range(-walkPointRange, walkPointRange);
+        float randomX = Random.Range(-walkPointRange, walkPointRange);
+        walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
 
 
         if (Physics.Raycast(walkPoint, -transform.up, 2.0f, whatIsGround))
+        {
             walkPointSet = true;
+        }
         //Invoke(nameof(ChangeTarget), 1.0f);
 
-    }
+    }*/
 
     private void ChasePlayer()
     {
         agent.SetDestination(player.position);
     }
 
-    private void AttackPlayer()//还没做好扣血机制，所以暂时是射敌人出来
+    private void AttackPlayer()
     {
         agent.SetDestination(transform.position);
-
         transform.LookAt(player);
 
-        if (!alreadyAttacked)
+        if (!Attacked)
         {
-            //子弹力度
+            //bullet power
             Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-            rb.AddForce(transform.forward * 30f, ForceMode.Impulse);
-            rb.AddForce(transform.up * 0.0f, ForceMode.Impulse);
+            rb.AddForce(transform.forward * 50.0f, ForceMode.Impulse);
+            rb.AddForce(transform.up * 5.0f, ForceMode.Impulse);
 
-            alreadyAttacked = true;
-            Invoke(nameof(ResetAttack), timeBetweenAttacks);
+            Attacked = true;
+            Invoke(nameof(ResetAttack), Ainterval);
         }
     }
     private void ResetAttack()
     {
-        alreadyAttacked = false;
+        Attacked = false;
     }
 
-    /*public void TakeDamage(int damage)//没做好
+    /*public void TakeDamage(int damage)
     {
         health -= damage;
 
@@ -143,10 +168,7 @@ public class EnemyAI : MonoBehaviour
         Destroy(gameObject);
     }
 
-    /*private void ChangeTarget()
-    {
-        walkPoint = new Vector3(randomX, transform.position.y, randomZ);
-    }*/
+
 
     /*public void ShowHPSlider()//for hp UI
     {

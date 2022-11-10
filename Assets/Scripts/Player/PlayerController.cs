@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     public GameObject player;
     public GameObject visualEffect;
     public static PlayerController instance;
-    public float moveSpeed = 10f;
+    public float moveSpeed = 6f;
     public float rotateSpeed = 2f;
     public float g = -9.81f;
     Vector3 gVelocity;

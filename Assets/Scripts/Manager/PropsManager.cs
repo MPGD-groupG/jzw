@@ -15,7 +15,7 @@ public class PropsManager : MonoBehaviour
     public Transform spawnPoint;
     public float spawnTime = 2f;
     public int propsNumber = 10; // Initial number of bonus
-    public int propsGainNumber = 5; // Initial number of bonus
+    public int propsGainNumber = 8; // Initial number of bonus
 
     private PropsBehavior bonusBehavior;
     private float spawnTimeVal = 2; // Generation interval time
@@ -44,7 +44,7 @@ public class PropsManager : MonoBehaviour
     void Spawn()
     {
         // Spawn this prop at a random location
-        Instantiate(props, (new Vector3(Random.Range(-20f, 20f), 0.5f, Random.Range(-20f, 20))), spawnPoint.rotation);
+        Instantiate(props, (new Vector3(Random.Range(-60f, 60f), 0.5f, Random.Range(-60f, 60))), spawnPoint.rotation);
 
     }
 

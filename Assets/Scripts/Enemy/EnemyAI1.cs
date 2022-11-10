@@ -11,7 +11,7 @@ public class EnemyAI1 : MonoBehaviour
 
     public LayerMask whatIsGround, whatIsPlayer;
 
-    //public float health;//还没实装
+    //public float health;
 
     public int MaxHP = 100;
 
@@ -19,19 +19,19 @@ public class EnemyAI1 : MonoBehaviour
 
     public int CurrentHP;
 
-    //Patroling还没整好
+    //Patroling
     public Vector3 walkPoint;
     public bool walkPointSet = false;
     public float walkPointRange;
 
     //Attacking
-    public float timeBetweenAttacks;
-    bool alreadyAttacked;
+    public float Ainterval;
+    bool Attacked;
     public GameObject projectile;
 
     //States
     public float sightRange, attackRange;
-    public bool playerInSightRange, playerInAttackRange;
+    public bool InSightRange, InAttackRange;
 
 
 
@@ -49,12 +49,12 @@ public class EnemyAI1 : MonoBehaviour
     private void Update()
     {
         //Check for sight and attack range
-        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+        InSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+        InAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-        if (!playerInSightRange && !playerInAttackRange) Patroling();
-        if (playerInSightRange && !playerInAttackRange) ChasePlayer();
-        if (playerInAttackRange && playerInSightRange) AttackPlayer();
+        if (!InSightRange && !InAttackRange) Patroling();
+        if (InSightRange && !InAttackRange) ChasePlayer();
+        if (InAttackRange && InSightRange) AttackPlayer();
 
     }
 
@@ -122,23 +122,23 @@ public class EnemyAI1 : MonoBehaviour
 
         transform.LookAt(player);
 
-        if (!alreadyAttacked)
+        if (!Attacked)
         {
-            //子弹力度
+            //bullet power
             Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-            rb.AddForce(transform.forward * 30f, ForceMode.Impulse);
-            rb.AddForce(transform.up * 0.3f, ForceMode.Impulse);
+            rb.AddForce(transform.forward * 45f, ForceMode.Impulse);
+            rb.AddForce(transform.up * 0.5f, ForceMode.Impulse);
 
-            alreadyAttacked = true;
-            Invoke(nameof(ResetAttack), timeBetweenAttacks);
+            Attacked = true;
+            Invoke(nameof(ResetAttack), Ainterval);
         }
     }
     private void ResetAttack()
     {
-        alreadyAttacked = false;
+        Attacked = false;
     }
 
-    /*public void TakeDamage(int damage)//没做好
+    /*public void TakeDamage(int damage)//
     {
         health -= damage;
 
