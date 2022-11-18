@@ -8,10 +8,11 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     
-    public GameObject player;
+    Rigidbody rigidBody;
     public GameObject visualEffect;
+    Vector3 newMovePosition;
     public static PlayerController instance;
-    public float moveSpeed = 6f;
+    public float moveSpeed = 10f;
     public float rotateSpeed = 2f;
     public float g = -9.81f;
     Vector3 gVelocity;
@@ -57,7 +58,8 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        player = GameObject.FindGameObjectWithTag("Player");
+        //player = GameObject.FindGameObjectWithTag("Player");
+        rigidBody = GetComponent<Rigidbody>();
         canSpeedUp = true;  // At the beginning the player's stamina value is full
     }
 
@@ -70,13 +72,20 @@ public class PlayerController : MonoBehaviour
         //animation = GetComponent<Animation>();
     }
 
-    void Update()
+    private void Update()
     {
         OpenMyBag();
+    }
+
+
+    void FixedUpdate()
+    {
+        // OpenMyBag();
 
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
         Vector3 Direction = new Vector3(h, 0f, v);
+
         
         if (Direction.magnitude>0)
         {
@@ -86,11 +95,12 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
 
+
             if (gotSuperpower)
             {
                 Debug.Log("got super power");
                 // Speed up by not consuming stamina value
-                moveSpeed = 25f;   // Move with superpower speed
+                moveSpeed = 20f;   // Move with superpower speed
                 visualEffect.SetActive(true); // Character effects display
 
                 superTimeVal -= Time.deltaTime;
@@ -105,10 +115,20 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                moveSpeed = 10.0f;
+                moveSpeed = 10f;
             }
 
-            transform.Translate(moveDir*Time.deltaTime*moveSpeed,Space.World);
+            newMovePosition = moveDir * Time.deltaTime * moveSpeed;
+
+            if (this.ObstacleDetect())   // Obstruction detected, object does not move
+            {
+                newMovePosition = - newMovePosition; // 
+            }
+
+            rigidBody.MovePosition(rigidBody.position + newMovePosition); 
+
+            //rigidBody.MovePosition(rigidBody.position+moveDir * Time.deltaTime * moveSpeed); // Eliminate jitter
+            //transform.Translate(moveDir*Time.deltaTime*moveSpeed,Space.World);
             //controller.Move(moveDir * moveSpeed * Time.deltaTime);
             //gVelocity.y+=g* Time.deltaTime;
             //controller.Move(gVelocity * Time.deltaTime);
@@ -134,43 +154,30 @@ public class PlayerController : MonoBehaviour
     //    animation.Play();
     //}
 
-    void FixedUpdate()
+    // Detection of objects within range
+    bool ObstacleDetect()
     {
+        float radius = 0.5f; // Detection range
+        Collider[] objectColliders = Physics.OverlapSphere(this.transform.position, radius, LayerMask.NameToLayer("layername")); // Multiple objects detected
+        if (objectColliders.Length > 0)
+        {
+            for (int i = 0; i < objectColliders.Length; i++)
+            {
+                if (objectColliders[i].CompareTag("Obstacle"))
+                {
+                    return true;
+                }
 
-        //Clamp();
-
-        //Vector3 movement = new Vector3(moveValue.x, 0.0f, moveValue.y);
-        //GetComponent<Rigidbody>().AddForce(movement * speed * Time.fixedDeltaTime);
-        //transform.position = new Vector3(moveValue.x*speed* Time.fixedDeltaTime, 0.0f, moveValue.y * speed * Time.fixedDeltaTime);
-        //transform.position += new Vector3(moveValue.x, 0.0f, moveValue.y)*speed;
-        //transform.Rotate(new Vector3(moveValue.x, 0.0f, moveValue.y*90),Space.Self);
-        //if(moveValue.x!=0||moveValue.y!=0)
-        //{
-        //    Rotating(moveValue.x, moveValue.y);
-        //}
-
-        //if (gotSuperpower)
-        //{
-        //    // Speed up by not consuming stamina value
-        //    speed = 0.3f;   // Move with superpower speed
-        //    visualEffect.SetActive(true); // Character effects display
-
-        //    superTimeVal -= Time.deltaTime;
-        //    if (superTimeVal <= 0)  // Can only have superpowers during superpower time
-        //    {
-        //        visualEffect.SetActive(false);
-        //        gotSuperpower = false;
-        //        superTimeVal = 10;
-        //    }
-
-        //    time = time + Time.deltaTime;
-        //}
-        //else
-        //{
-        //    speed = 0.1f;
-        //}
+            }
 
         }
+        return false;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(this.transform.position, 10);
+    }
 
     /*private void Clamp()
     {
