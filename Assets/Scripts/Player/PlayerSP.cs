@@ -5,20 +5,19 @@ using UnityEngine.UI;
 
 public class PlayerSP : MonoBehaviour
 {
+    private PlayerController playerController;
+    public static PlayerSP instance;
+    private GameObject player;
+    public Image spBar;
+
     public int maxSP = 100; // Initial SP
     public int currentSP;
-
-    private PlayerController playerController;
-    private GameObject player;
 
     public int consumeSP = 10; // Cost 10 SP/s
     public int restoreSP = 20; // Restore 20 SP/s
 
     public float timeBetweenConsume = 1f;
 
-    public Image spBar;
-
-    public static PlayerSP instance;
 
     private void Awake()
     {
@@ -77,14 +76,4 @@ public class PlayerSP : MonoBehaviour
     }
 
 
-
-    public int getSP()
-    {
-        return currentSP;
-    }
-
-    public void setSP(int saveDate)
-    {
-        currentSP = saveDate;
-    }
 }

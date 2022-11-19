@@ -8,9 +8,10 @@ public class PropsManager : MonoBehaviour
 
     private PlayerController playerController;
     private GameObject player;
+    public GameObject[] groups; // item group
 
     //public PlayerHealth playerHealth;
-    public GameObject props;
+    //public GameObject props;
 
     public Transform spawnPoint;
     public float spawnTime = 2f;
@@ -39,13 +40,22 @@ public class PropsManager : MonoBehaviour
     }
 
 
+    /*    // Old spawn for only one item
+        void Spawn()
+        {
+            // Spawn this prop at a random location
+            Instantiate(props, (new Vector3(Random.Range(-60f, 60f), 0.5f, Random.Range(-60f, 60))), spawnPoint.rotation);
 
-    void Spawn()
+        }*/
+
+    public void Spawn()
     {
-        // Spawn this prop at a random location
-        Instantiate(props, (new Vector3(Random.Range(-60f, 60f), 0.5f, Random.Range(-60f, 60))), spawnPoint.rotation);
+        // Random Index
+        int i = Random.Range(0, groups.Length);
 
+        Instantiate(groups[i],(new Vector3(Random.Range(-60f, 60f), 0.5f, Random.Range(-60f, 60))), spawnPoint.rotation);
     }
+
 
     public void SpawnProps()
     {

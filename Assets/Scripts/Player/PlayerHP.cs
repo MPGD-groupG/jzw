@@ -3,31 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class PlayerHP : MonoBehaviour
 {
+    private PlayerController playerController;
+    public static PlayerHP instance;
+    public Slider Slider;
+    public Text winloseText;
+    public Image hpBar;
 
     private int maxHP = 100;
     public int currentHP;
-    public Slider Slider;
-    public Text winloseText;
+
     // public int PlayerCurrentHP;
     private bool isServer = true;
-
-    public static PlayerHP instance;
-
-    private PlayerController playerController;
     private bool isDead;
 
     // Restore HP
     public bool gotRestoreHPPower;
     public int restoreHP = 20; // Restore 20 HP/s
+
+    // Consume HP
+    public bool consumeHPByVP;
+    public int consumeHP = 10; // Consume 10 HP/s
+
     private float time;
     public float superTimeVal = 10; // Superpower Duration
-
-
-    public Image hpBar;
-
+    public float timeBetweenConsumeHPByVP = 1f; // Deduct Duration
 
     private void Awake()
     {
@@ -51,6 +54,11 @@ public class PlayerHP : MonoBehaviour
             gotRestoreHPPower=false;
         }
 
+/*        if (consumeHPByVP)
+        {
+            ConsumeHP();
+        }*/
+
 
         // Change hpBar display
         if (currentHP <= 0)
@@ -63,6 +71,7 @@ public class PlayerHP : MonoBehaviour
             hpBar.fillAmount = (float)currentHP / (float)maxHP;
         }
     }
+
 
     public void TakeDamage(int damage)
     {
@@ -88,9 +97,27 @@ public class PlayerHP : MonoBehaviour
     }
 
 
+    public void ConsumeHP()
+    {
+        // consumeHPByVP = true;
+        
+        Debug.Log("consume HP by VP");
+        timeBetweenConsumeHPByVP-= Time.deltaTime;
+        if (timeBetweenConsumeHPByVP <= 0)  // Can only have superpowers during superpower time
+        {
+            //consumeHPByVP = false;
+            currentHP = currentHP - consumeHP;
+            timeBetweenConsumeHPByVP = 1;
+        }
+
+        time = time + Time.deltaTime;
+
+    }
+
+
     public void RestoreHP()
     {
-        Debug.Log("restore!!");
+        // Debug.Log("restore hp");
         if (currentHP < 100)
         {
             currentHP = currentHP + restoreHP;   // SP restore
