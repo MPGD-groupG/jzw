@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2867b5bb0ed504959bb26d4cfff48960, type: 3}
-  m_Name: Apple
+  m_Name: RestoreHP
   m_EditorClassIdentifier: 
-  itemName: Apple
-  itemImage: {fileID: 21300000, guid: ada4af3f2bff2334ca029206f247cb39, type: 3}
+  itemName: Restore HP
+  itemImage: {fileID: 21300000, guid: 7434424e6160df248a44fdf21462d6b3, type: 3}
   itemHeld: 0
-  itemInfo: Speed up for 10 seconds!
+  itemPowerType: 2
+  itemInfo: Restore 5 HP!

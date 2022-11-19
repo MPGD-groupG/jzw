@@ -12,16 +12,11 @@ public class PlayerController : MonoBehaviour
     public GameObject visualEffect;
     Vector3 newMovePosition;
     public static PlayerController instance;
-    public float moveSpeed = 10f;
+    // public float moveSpeed = 10f;
     public float rotateSpeed = 2f;
     public float g = -9.81f;
     Vector3 gVelocity;
 
-    // area clamp
-    public float minX = -9f;
-    public float maxX = 12f;
-    public float minZ = -12f;
-    public float maxZ = 5f;
 
     public Vector2 moveValue;
     public float speed = 0.12f;
@@ -32,16 +27,30 @@ public class PlayerController : MonoBehaviour
     private float turnSpeed = 14f;
     // public Animation animation;
 
-    // Buff for speed up
-    // Check sp
-    public bool isSpeedUp;  // Check if the player is running
-    public bool canSpeedUp; // Check if the player can run
+    // Buff time
+    private float time;
+    public float superTimeVal = 10; // Superpower Duration
+
+    // Speed up
     public int speedUpConsume = 10; // Running cost 10 SP/s
     public float timeBetweenConsume = 1f;
 
-    private float time;
-    public float superTimeVal = 10; // Superpower Duration
-    public bool gotSuperpower; // Superpower status
+    public float walkSpeed = 10.0f;
+    public float runSpeed = 15.0f;
+    public float superSpeed = 20.0f;
+    public float moveSpeed;
+
+    private PlayerSP playerSP;
+    public bool isSpeedUp;  // Check if the player is running
+    public bool canSpeedUp; // Check if the player can run
+
+    // Restore HP
+    Transform enemyTransform;
+
+
+
+
+    public bool gotSpeedUpPower; // Superpower status
 
     // Check once trigger
     private int playerTouchedOnce = 0;
@@ -58,9 +67,14 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        //player = GameObject.FindGameObjectWithTag("Player");
         rigidBody = GetComponent<Rigidbody>();
+
+        playerSP = GetComponent<PlayerSP>();
         canSpeedUp = true;  // At the beginning the player's stamina value is full
+        
+        var enemy = GameObject.FindGameObjectWithTag("Enemy");
+        enemyTransform = enemy.transform;
+
     }
 
     private void Start()
@@ -95,8 +109,53 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
 
+            // Check the current status of the character
+            if (canSpeedUp && Input.GetKey(KeyCode.LeftShift) && !gotSpeedUpPower)
+            {
+                // Speed up by consuming stamina value
+                isSpeedUp = true;
+                moveSpeed = runSpeed;   // Move with running speed
+                time = time + Time.deltaTime;
+                if (time >= timeBetweenConsume && playerSP.currentSP >= 0)    // Can only be consumed when there is a stamina value left
+                {
+                    ConsumeStamina();
+                }
 
-            if (gotSuperpower)
+            }
+            else if (gotSpeedUpPower)
+            {
+                // Speed up by not consuming stamina value
+                moveSpeed = superSpeed;   // Move with superpower speed
+                visualEffect.SetActive(true); // Character effects display
+
+                superTimeVal -= Time.deltaTime;
+                if (superTimeVal <= 0)  // Can only have superpowers during superpower time
+                {
+                    visualEffect.SetActive(false);
+                    gotSpeedUpPower = false;
+                    superTimeVal = 10;
+                }
+
+                time = time + Time.deltaTime;
+                if (time >= timeBetweenConsume && playerSP.currentSP <= 100)  // Can only restore stamina value when player is not running
+                {
+                    RestoreStamina();
+                }
+            }
+            else
+            {
+                // Normal speed
+                isSpeedUp = false;
+                moveSpeed = walkSpeed;// Move with walk speed
+                time = time + Time.deltaTime;
+                if (time >= timeBetweenConsume && playerSP.currentSP <= 100)  // Can only restore stamina value when player is not running
+                {
+                    RestoreStamina();
+                }
+
+            }
+
+/*            if (isSpeedUp)
             {
                 Debug.Log("got super power");
                 // Speed up by not consuming stamina value
@@ -107,7 +166,7 @@ public class PlayerController : MonoBehaviour
                 if (superTimeVal <= 0)  // Can only have superpowers during superpower time
                 {
                     visualEffect.SetActive(false);
-                    gotSuperpower = false;
+                    gotSpeedUpPower = false;
                     superTimeVal = 10;
                 }
 
@@ -115,8 +174,8 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                moveSpeed = 10f;
-            }
+                moveSpeed = walkSpeed;
+            }*/
 
             newMovePosition = moveDir * Time.deltaTime * moveSpeed;
 
@@ -145,16 +204,7 @@ public class PlayerController : MonoBehaviour
         }*/
     }
 
-    //void OnMove(InputValue value)
-    //{
-    //    moveValue = value.Get<Vector2>();
-    //}
-    //void Onfire(InputValue value)
-    //{
-    //    animation.Play();
-    //}
 
-    // Detection of objects within range
     bool ObstacleDetect()
     {
         float radius = 0.5f; // Detection range
@@ -179,12 +229,6 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawWireSphere(this.transform.position, 10);
     }
 
-    /*private void Clamp()
-    {
-        float xClamp = Mathf.Clamp(transform.position.x, minX, maxX);
-        float zClamp = Mathf.Clamp(transform.position.z, minZ, maxZ);
-        transform.position = new Vector3(xClamp, transform.position.y, zClamp);
-    }*/
 
     //void Rotating(float h,float v)
     //{
@@ -206,54 +250,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /*    void OnTriggerEnter(Collider other)
-        {
-            if (other.gameObject.tag == "PickUp")
-            {
-                // other.gameObject.SetActive(false); // If set false here, the items can't be generated in the prop bar.
-                playerTouchedOnce++;
-                if (playerTouchedOnce == 1)
-                {
-                    count++;
-                    SetCountText();
-                }
-
-
-            }
-            //check if player out of scene
-            if (other.gameObject.tag == "Check")
-            {
-                winloseText.text = "Dead....";
-                Invoke("Restart", 2.0f);
-            }
-        }
-
-
-        private void SetCountText()
-        {
-            //win check
-            scoreText.text = "Score: " + count.ToString();
-            if(count >= numPickups)
-            {
-                winloseText.text = "Win!";
-                Invoke("AlreadyWin", 0.0f);
-
-            }
-        }
-
-        void AlreadyWin()//to avoid wrong win/lose check
-        {
-            gameObject.SetActive(false);
-            Invoke("Restart", 2f);
-        }
-
-        /*    void Restart()
-            {
-                //reset game 
-                SceneManager.LoadScene(0);
-            }*/
-
-
 
     void OpenMyBag()
     {
@@ -263,4 +259,18 @@ public class PlayerController : MonoBehaviour
             myBag.SetActive(isOpen);
         }
     }
+
+    private void ConsumeStamina()
+    {
+        time = 0;
+        playerSP.ConsumSP();
+    }
+
+    private void RestoreStamina()
+    {
+        time = 0;
+        playerSP.RestoreSP();
+    }
+
+
 }

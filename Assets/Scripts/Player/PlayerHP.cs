@@ -7,34 +7,72 @@ using UnityEngine.SceneManagement;
 public class PlayerHP : MonoBehaviour
 {
 
-    private int PlayerMaxHP = 100;
+    private int maxHP = 100;
+    public int currentHP;
     public Slider Slider;
     public Text winloseText;
-    public int PlayerCurrentHP;
+    // public int PlayerCurrentHP;
     private bool isServer = true;
 
     public static PlayerHP instance;
 
+    private PlayerController playerController;
+    private bool isDead;
+
+    // Restore HP
+    public bool gotRestoreHPPower;
+    public int restoreHP = 20; // Restore 20 HP/s
+    private float time;
+    public float superTimeVal = 10; // Superpower Duration
+
+
+    public Image hpBar;
+
+
     private void Awake()
     {
         instance = this;
+        currentHP = maxHP;
+
     }
 
 
     private void Start()
     {
-        PlayerCurrentHP = PlayerMaxHP;
-        Slider.value = PlayerMaxHP;
+        // currentHealth = maxHP;
+        Slider.value = maxHP;
+    }
+
+    private void Update()
+    {
+        if (gotRestoreHPPower)
+        {
+            currentHP += 5;
+            gotRestoreHPPower=false;
+        }
+
+
+        // Change hpBar display
+        if (currentHP <= 0)
+        {
+            hpBar.fillAmount = 0;
+            UIManager.instance.checkState();  // Gameover
+        }
+        else
+        {
+            hpBar.fillAmount = (float)currentHP / (float)maxHP;
+        }
     }
 
     public void TakeDamage(int damage)
     {
         if (!isServer) return;
-        PlayerCurrentHP -= damage;
+        currentHP = currentHP - damage;
+        // PlayerCurrentHP -= damage;
         ShowHPSlider();
-        if (PlayerCurrentHP <= 0)
+        if (currentHP <= 0)
         {
-            PlayerCurrentHP = 0;
+            currentHP = 0;
             UIManager.instance.checkState();
             /*            this.gameObject.SetActive(false);
                         winloseText.text = "Dead....";
@@ -42,10 +80,28 @@ public class PlayerHP : MonoBehaviour
 
         }
     }
+
+
     public void ShowHPSlider()
     {
-        Slider.value = PlayerCurrentHP / (float)PlayerMaxHP;
+        Slider.value = currentHP / (float)maxHP;
     }
+
+
+    public void RestoreHP()
+    {
+        Debug.Log("restore!!");
+        if (currentHP < 100)
+        {
+            currentHP = currentHP + restoreHP;   // SP restore
+        }
+        else
+        {
+            currentHP = 100;
+        }
+
+    }
+
 
     void Restart()
     {

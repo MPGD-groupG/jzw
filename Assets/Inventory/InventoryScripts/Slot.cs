@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Slot : MonoBehaviour
 {
     private PlayerController playerController;
+    private PlayerHP playerHP;
     private GameObject player;
     public static Slot instance;
 
@@ -25,6 +26,7 @@ public class Slot : MonoBehaviour
         instance = this;
         player = GameObject.FindGameObjectWithTag("Player");
         playerController = player.GetComponent<PlayerController>();
+        playerHP = player.GetComponent<PlayerHP>();
 
     }
 
@@ -38,7 +40,17 @@ public class Slot : MonoBehaviour
             if (slotItem.itemHeld != 0)
             {
                 slotItem.itemHeld -= 1;
-                playerController.gotSuperpower = true;
+                switch (slotItem.itemPowerType)
+                {
+                    case 1:
+                        playerController.gotSpeedUpPower = true;;
+                        break;
+                    case 2:
+                        playerHP.gotRestoreHPPower = true;
+                        break; 
+
+                }
+                // playerController.gotSpeedUpPower = true;
             }
             else
             {

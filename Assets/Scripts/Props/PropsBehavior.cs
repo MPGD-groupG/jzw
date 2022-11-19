@@ -34,7 +34,7 @@ public class PropsBehavior : MonoBehaviour
             {
                 UIManager.instance.SetScoreText();
                 PropsManager.instance.SpawnProps(); // Spawn new bonus
-                Debug.Log("destroy");
+                // Debug.Log("destroy pickup");
             }
 
         }

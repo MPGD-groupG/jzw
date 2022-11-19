@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PropsManager : MonoBehaviour
 {
 
-    private PlayerController playerMovement;
+    private PlayerController playerController;
     private GameObject player;
 
     //public PlayerHealth playerHealth;
@@ -27,7 +27,7 @@ public class PropsManager : MonoBehaviour
     {
         instance = this;
         player = GameObject.FindGameObjectWithTag("Player");
-        playerMovement = player.GetComponent<PlayerController>();
+        playerController = player.GetComponent<PlayerController>();
         // Spawn initial bonus items
         int i = 0;
         while (i < propsNumber)
@@ -35,7 +35,6 @@ public class PropsManager : MonoBehaviour
             Spawn();
             i++;
         }
-
 
     }
 
@@ -78,20 +77,19 @@ public class PropsManager : MonoBehaviour
         HUD.instance.SetPropsNumber(propsGainNumber);
     }
 
-    /*    public int getNumber()
-        {
-            return propsNumber;
-        }*/
 
-
-    // Shortcut bar to use props
+/*    // Shortcut bar to use props
     public void OnBonusClicked()
     {
         if (propsGainNumber != 0)
         {
-            playerMovement.gotSuperpower = true;
+            playerController.gotSpeedUpPower = true;
             propsGainNumber--;
         }
-    }
+    }*/
+
+
+
+
 
 }
