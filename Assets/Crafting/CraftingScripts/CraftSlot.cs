@@ -11,13 +11,14 @@ public class CraftSlot : MonoBehaviour
     public static CraftSlot instance;
     public GameObject itemInSlot;
 
-    public int slotID;// IDnumber
+    public Text slotID;// IDnumber
     public CraftItem slotItem; // Props in the grid
     public Image slotImage;
     public Text slotNum;
     public string slotInfo;
 
     private bool chooseItem;
+    public Text resultInformation;
 
     private float intervalTime = 0.3f;
 
@@ -47,7 +48,7 @@ public class CraftSlot : MonoBehaviour
 
         if (timeContinue && realTime <= 0.01)
         {
-            Debug.Log("单击");// The timer ends, one click
+            // Debug.Log("one click");// The timer ends, one click
             doubleClick = false;
             timeContinue = false;
         }
@@ -79,37 +80,35 @@ public class CraftSlot : MonoBehaviour
         // Obtain new items
         if (chooseItem && doubleClick)
         {
-            //InventoryManager.UpdateItemInfo(slotItem.itemInfo);
-            if (slotItem.itemHeld != 0)
-            {
-                slotItem.itemHeld -= 1;
-
                 switch (slotItem.itemID)
                 {
                     case 1: // Create item3 need consume 2 item1
                         if (playerInventory.itemList.Contains(thisItem[0]) && thisItem[0].itemHeld >= 2)
                         {
-                            thisItem[0].itemHeld -= 2;
+                            thisItem[0].itemHeld -= 2; // Consume 2 item1
                             // Create new item in inventory list
                             if (!playerInventory.itemList.Contains(thisItem[2]))
                             {
                                 playerInventory.itemList.Add(thisItem[2]);
                                 thisItem[2].itemHeld += 1;
                             }else thisItem[2].itemHeld += 1;
-                        }
+                        CraftingManager.ShowCraftResult("Crafting success");
+                    }
+                    else
+                    {
+                        CraftingManager.ShowCraftResult("Insufficient materials");
+                    }
                         break; 
-                    case 2:
-                        playerInventory.itemList.Contains(thisItem[1]);
-                        break; 
+                    case 2: 
+                            // There is currently only one item type that can be generated
+                    break; 
 
                 }
 
                 InventoryManager.RefreshItem();
-            }
-            else
-            {
-                Debug.Log("no item can use");
-            }
+            
+            //InventoryManager.UpdateItemInfo(slotItem.itemInfo);
+
             chooseItem = false;
             CraftingManager.RefreshItem();
         }
@@ -125,7 +124,8 @@ public class CraftSlot : MonoBehaviour
         }
 
         slotImage.sprite = item.itemImage;
-        slotNum.text = item.itemHeld.ToString();
+        slotNum.text = item.itemHeld.ToString(); // Use the itemHeld to temporarily replace the ID
+        slotID.text = item.itemID.ToString(); // Can't change the slotID
         slotInfo = item.itemInfo;
 
     }

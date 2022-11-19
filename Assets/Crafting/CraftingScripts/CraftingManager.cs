@@ -6,13 +6,14 @@ using UnityEngine.UI;
 
 public class CraftingManager : MonoBehaviour
 {
-    static CraftingManager instance;
+    public static CraftingManager instance;
 
     public Crafting myCraft;
     public GameObject slotGrid;
     public CraftSlot slotPrefab;
     //public GameObject emptySlot;
     public Text itemInformation;
+    public Text craftResult;
 
     public List<GameObject> slots = new List<GameObject>(); // Manage the slots generated
 
@@ -27,6 +28,7 @@ public class CraftingManager : MonoBehaviour
     {
         RefreshItem();
         instance.itemInformation.text = ""; // Item information is empty at first
+        instance.craftResult.text = "";
     }
 
 
@@ -34,6 +36,14 @@ public class CraftingManager : MonoBehaviour
     {
         instance.itemInformation.text = itemDescription;
     }
+
+
+    public static void ShowCraftResult(string craftResult)
+    {
+        instance.craftResult.text = craftResult;
+
+    }
+
 
     public static void CreateNewItem(CraftItem item)
     {

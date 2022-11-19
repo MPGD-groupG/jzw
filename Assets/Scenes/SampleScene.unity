@@ -4820,7 +4820,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a16aebc746da5403e982c1fd15d13d12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thisItem: {fileID: 11400000, guid: 8edfb3ce37698794ba27049017a9cbf2, type: 2}
+  thisItem: {fileID: 11400000, guid: 47fb175f2cbfd9d42b952fcc6521b41e, type: 2}
   playerInventory: {fileID: 11400000, guid: 9591e1eaf5467f345ad20ba2c6dfd7c5, type: 2}
 --- !u!114 &1150037926
 MonoBehaviour:
@@ -5505,6 +5505,7 @@ RectTransform:
   - {fileID: 1050039554}
   - {fileID: 416535386}
   - {fileID: 496013026}
+  - {fileID: 1808367063}
   m_Father: {fileID: 1779261724}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7571,7 +7572,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a16aebc746da5403e982c1fd15d13d12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thisItem: {fileID: 11400000, guid: 47fb175f2cbfd9d42b952fcc6521b41e, type: 2}
+  thisItem: {fileID: 11400000, guid: 8edfb3ce37698794ba27049017a9cbf2, type: 2}
   playerInventory: {fileID: 11400000, guid: 9591e1eaf5467f345ad20ba2c6dfd7c5, type: 2}
 --- !u!135 &1733903103
 SphereCollider:
@@ -7822,7 +7823,88 @@ MonoBehaviour:
   slotGrid: {fileID: 1359154613}
   slotPrefab: {fileID: -2351043724669893010, guid: 462a3f89aa432ad42a75b314b9497c3a, type: 3}
   itemInformation: {fileID: 416535387}
+  craftResult: {fileID: 1808367061}
   slots: []
+--- !u!1 &1808367060
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1808367063}
+  - component: {fileID: 1808367062}
+  - component: {fileID: 1808367061}
+  m_Layer: 5
+  m_Name: ResultText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1808367061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808367060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 39
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 66
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Insufficient materials
+--- !u!222 &1808367062
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808367060}
+  m_CullTransparentMesh: 1
+--- !u!224 &1808367063
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808367060}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1311911360}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.31458, y: -33.067596}
+  m_SizeDelta: {x: 308.1428, y: 96.1352}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1827767834
 GameObject:
   m_ObjectHideFlags: 0
@@ -9766,7 +9848,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1334009230168792516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9840,10 +9922,10 @@ RectTransform:
   m_Father: {fileID: 1359154614}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 79, y: -102}
+  m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1334009230168792518
 CanvasRenderer:
@@ -9896,11 +9978,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemInSlot: {fileID: 2982017571161575697, guid: 462a3f89aa432ad42a75b314b9497c3a, type: 3}
-  slotID: 0
+  slotID: {fileID: 0}
   slotItem: {fileID: 0}
   slotImage: {fileID: 2982017571161575700, guid: 462a3f89aa432ad42a75b314b9497c3a, type: 3}
   slotNum: {fileID: 2982017569326866708, guid: 462a3f89aa432ad42a75b314b9497c3a, type: 3}
   slotInfo: 
+  resultInformation: {fileID: 0}
   thisItem: []
   playerInventory: {fileID: 11400000, guid: 9591e1eaf5467f345ad20ba2c6dfd7c5, type: 2}
 --- !u!224 &1334009230481501636
@@ -10845,7 +10928,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!222 &6610403221207975468
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10957,10 +11040,10 @@ RectTransform:
   m_Father: {fileID: 1359154614}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 79, y: -102}
+  m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6610403221207975476
 MonoBehaviour:
@@ -10975,11 +11058,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemInSlot: {fileID: 2982017571161575697, guid: 462a3f89aa432ad42a75b314b9497c3a, type: 3}
-  slotID: 0
+  slotID: {fileID: 0}
   slotItem: {fileID: 0}
   slotImage: {fileID: 6610403221207975469}
   slotNum: {fileID: 2982017569326866708, guid: 462a3f89aa432ad42a75b314b9497c3a, type: 3}
   slotInfo: 
+  resultInformation: {fileID: 0}
   thisItem: []
   playerInventory: {fileID: 0}
 --- !u!1 &6626336997749747108

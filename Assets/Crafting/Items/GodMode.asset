@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: GodMode
   itemImage: {fileID: 21300000, guid: 5d17a98470672e44aaa1337b2a8dcde5, type: 3}
-  itemHeld: 36
+  itemHeld: 2
   itemID: 2
-  itemInfo: Need 2 GREEN APPLES
+  itemInfo: 'God Mode
+
+    Need 2 GREEN APPLES'
