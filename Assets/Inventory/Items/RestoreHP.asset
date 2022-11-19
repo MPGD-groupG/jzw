@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RestoreHP
   m_EditorClassIdentifier: 
   itemName: Restore HP
-  itemImage: {fileID: 21300000, guid: 7434424e6160df248a44fdf21462d6b3, type: 3}
-  itemHeld: 0
+  itemImage: {fileID: 21300000, guid: ada4af3f2bff2334ca029206f247cb39, type: 3}
+  itemHeld: 3
   itemPowerType: 2
-  itemInfo: Restore 5 HP!
+  itemInfo: 'RED APPLE: Restore 5 HP'

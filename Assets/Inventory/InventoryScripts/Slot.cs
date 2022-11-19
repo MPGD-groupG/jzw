@@ -47,7 +47,10 @@ public class Slot : MonoBehaviour
                         break;
                     case 2:
                         playerHP.gotRestoreHPPower = true;
-                        break; 
+                        break;
+                    case 3:
+                        Debug.Log("3rd power");
+                        break;
 
                 }
                 // playerController.gotSpeedUpPower = true;

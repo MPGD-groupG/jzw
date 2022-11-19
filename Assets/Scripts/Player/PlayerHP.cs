@@ -64,7 +64,8 @@ public class PlayerHP : MonoBehaviour
         if (currentHP <= 0)
         {
             hpBar.fillAmount = 0;
-            UIManager.instance.checkState();  // Gameover
+            // UIManager.instance.checkState();  // Gameover
+            UIManager.instance.isDead = true;
         }
         else
         {
@@ -82,7 +83,8 @@ public class PlayerHP : MonoBehaviour
         if (currentHP <= 0)
         {
             currentHP = 0;
-            UIManager.instance.checkState();
+            // UIManager.instance.checkState();
+            UIManager.instance.isDead = true;
             /*            this.gameObject.SetActive(false);
                         winloseText.text = "Dead....";
                         Invoke("Restart", 1.5f);*/

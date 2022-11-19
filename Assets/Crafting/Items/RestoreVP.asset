@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2867b5bb0ed504959bb26d4cfff48960, type: 3}
-  m_Name: SpeedUp
+  m_Script: {fileID: 11500000, guid: 6d3ee63568376434eb54934580bd9941, type: 3}
+  m_Name: RestoreVP
   m_EditorClassIdentifier: 
-  itemName: Speed Up
-  itemImage: {fileID: 21300000, guid: 7434424e6160df248a44fdf21462d6b3, type: 3}
-  itemHeld: 0
-  itemPowerType: 1
-  itemInfo: 'GREEN APPLE: Speed up for 10 seconds'
+  itemName: RestoreVP
+  itemImage: {fileID: 21300000, guid: c4bb08b9ff56f18428589686c2691a50, type: 3}
+  itemHeld: 115
+  itemID: 1
+  itemInfo: Need 2 RED APPLES

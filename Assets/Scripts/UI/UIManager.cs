@@ -17,10 +17,10 @@ public class UIManager : MonoBehaviour
     public Text timerText;
 
     // Gameover UI
-    public Text winloseText;  
-    private bool isTimeOut = false;
-    private bool isDead = false;
-    private bool outOfScene = false;
+    public Text winloseText;
+    public bool isTimeOut = false;
+    public bool isDead = false;
+    public bool outOfScene = false;
 
     // Player's score
     public Text scoreText;
@@ -108,17 +108,17 @@ public class UIManager : MonoBehaviour
 
     }
 
-    public void checkState()
+/*    public void checkState()
     {
         // Player is dead
         isDead = true;
-    }
+    }*/
 
-    public void checkScene()
+/*    public void checkScene()
     {
         // Player is out of scene
         outOfScene = true;
-    }
+    }*/
 
 
     void AlreadyWin()//to avoid wrong win/lose check

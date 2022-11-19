@@ -60,8 +60,10 @@ public class PlayerController : MonoBehaviour
 
     // Inventory
     public GameObject myBag;
-    bool isOpen;
-
+    bool openBag;
+    // Crafting
+    public GameObject myCraft;
+    bool openCraft;
 
 
     private void Awake()
@@ -89,6 +91,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         OpenMyBag();
+        OpenMyCraft();
     }
 
 
@@ -154,28 +157,6 @@ public class PlayerController : MonoBehaviour
                 }
 
             }
-
-/*            if (isSpeedUp)
-            {
-                Debug.Log("got super power");
-                // Speed up by not consuming stamina value
-                moveSpeed = 20f;   // Move with superpower speed
-                visualEffect.SetActive(true); // Character effects display
-
-                superTimeVal -= Time.deltaTime;
-                if (superTimeVal <= 0)  // Can only have superpowers during superpower time
-                {
-                    visualEffect.SetActive(false);
-                    gotSpeedUpPower = false;
-                    superTimeVal = 10;
-                }
-
-                time = time + Time.deltaTime;
-            }
-            else
-            {
-                moveSpeed = walkSpeed;
-            }*/
 
             newMovePosition = moveDir * Time.deltaTime * moveSpeed;
 
@@ -246,7 +227,8 @@ public class PlayerController : MonoBehaviour
         // Check if player out of scene
         if (other.gameObject.tag == "Check")
         {
-            UIManager.instance.checkScene();
+            // UIManager.instance.checkScene();
+            UIManager.instance.outOfScene = true;
         }
     }
 
@@ -255,8 +237,17 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.B))
         {
-            isOpen = !isOpen;
-            myBag.SetActive(isOpen);
+            openBag = !openBag;
+            myBag.SetActive(openBag);
+        }
+    }
+
+    void OpenMyCraft()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            openCraft = !openCraft;
+            myCraft.SetActive(openCraft);
         }
     }
 

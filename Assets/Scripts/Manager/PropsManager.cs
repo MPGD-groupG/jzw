@@ -13,7 +13,7 @@ public class PropsManager : MonoBehaviour
     //public PlayerHealth playerHealth;
     //public GameObject props;
 
-    public Transform spawnPoint;
+    //public Transform spawnPoint;
     public float spawnTime = 2f;
     public int propsNumber = 10; // Initial number of bonus
     public int propsGainNumber = 8; // Initial number of bonus
@@ -53,7 +53,7 @@ public class PropsManager : MonoBehaviour
         // Random Index
         int i = Random.Range(0, groups.Length);
 
-        Instantiate(groups[i],(new Vector3(Random.Range(-60f, 60f), 0.5f, Random.Range(-60f, 60))), spawnPoint.rotation);
+        Instantiate(groups[i],(new Vector3(Random.Range(-60f, 60f), 0.5f, Random.Range(-60f, 60))), Quaternion.identity);
     }
 
 
