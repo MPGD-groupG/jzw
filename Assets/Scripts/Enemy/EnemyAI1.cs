@@ -32,6 +32,7 @@ public class EnemyAI1 : MonoBehaviour
     //States
     public float sightRange, attackRange;
     public bool InSightRange, InAttackRange;
+    public int damage;
 
 
 
@@ -157,10 +158,11 @@ public class EnemyAI1 : MonoBehaviour
     {
         //if (!isServer) return;
         CurrentHP -= damage;
+        Debug.Log("hp--");
         //ShowHPSlider();
         if (CurrentHP <= 0)
         {
-            Invoke(nameof(DestroyEnemy), 0.5f);
+            Invoke(nameof(DestroyEnemy), 0.1f);
         }
     }
 
