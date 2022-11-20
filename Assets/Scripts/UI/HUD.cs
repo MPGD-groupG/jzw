@@ -34,7 +34,7 @@ public class HUD : MonoBehaviour
     }
 
 
-    public void SetPropsNumber(int propsNumber)
+    public void SetItemNumber(int propsNumber)
     {
         numberPropSubText.text = propsNumber.ToString();
     }

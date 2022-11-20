@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PropsBehavior : MonoBehaviour
+public class ItemBehavior : MonoBehaviour
 {
 
     private PlayerController playerMovement;
@@ -11,10 +11,10 @@ public class PropsBehavior : MonoBehaviour
     private float curtTime = 0.0f;
 
     public float timeBetweenConsume = 1f;
-    public int playerTouchedOnce = 0; // Number of times touched by player
+    public int playerTouchedOnce = 0; // Number of times touched item by player, avoid multiple trigger
 
-    public static PropsBehavior instance;
-    private int bonusScore = 10; // Bonus' score
+    public static ItemBehavior instance;
+    private int itemScore = 10; // item score
 
     private void Awake()
     {
@@ -39,7 +39,7 @@ public class PropsBehavior : MonoBehaviour
             if (playerTouchedOnce == 1)
             {
                 UIManager.instance.SetScoreText();
-                PropsManager.instance.SpawnProps(); // Spawn new bonus
+                ItemManager.instance.SpawnProps(); // Spawn new item
                 // Debug.Log("destroy pickup");
             }
 

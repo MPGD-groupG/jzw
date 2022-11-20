@@ -3,25 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PropsManager : MonoBehaviour
+public class ItemManager : MonoBehaviour
 {
 
     private PlayerController playerController;
     private GameObject player;
-    public GameObject[] groups; // item group
+    public GameObject[] itemGroup; // item group
 
-    //public PlayerHealth playerHealth;
-    //public GameObject props;
-
-    //public Transform spawnPoint;
     public float spawnTime = 2f;
-    public int propsNumber = 10; // Initial number of bonus
-    public int propsGainNumber = 8; // Initial number of bonus
+    public int itemNumber = 10; // Initial number of bonus
+    public int itemGainNumber = 8; // Initial number of bonus
 
-    private PropsBehavior bonusBehavior;
+    private ItemBehavior bonusBehavior;
     private float spawnTimeVal = 2; // Generation interval time
 
-    public static PropsManager instance;
+    public static ItemManager instance;
     private bool spawnNew;
 
     private void Awake()
@@ -29,9 +25,9 @@ public class PropsManager : MonoBehaviour
         instance = this;
         player = GameObject.FindGameObjectWithTag("Player");
         playerController = player.GetComponent<PlayerController>();
-        // Spawn initial bonus items
+        // Spawn initial items
         int i = 0;
-        while (i < propsNumber)
+        while (i < itemNumber)
         {
             Spawn();
             i++;
@@ -51,17 +47,17 @@ public class PropsManager : MonoBehaviour
     public void Spawn()
     {
         // Random Index
-        int i = Random.Range(0, groups.Length);
+        int i = Random.Range(0, itemGroup.Length);
 
-        Instantiate(groups[i],(new Vector3(Random.Range(-60f, 60f), 0.5f, Random.Range(-60f, 60))), Quaternion.identity);
+        Instantiate(itemGroup[i],(new Vector3(Random.Range(-60f, 60f), 0.5f, Random.Range(-60f, 60))), Quaternion.identity);
     }
 
 
     public void SpawnProps()
     {
         spawnNew = true;
-        propsNumber--; // Current props number decrease 
-        propsGainNumber++; // Increase in props acquired by players
+        //itemNumber--; // Current item number decrease 
+        //itemGainNumber++;
 
     }
 
@@ -70,31 +66,31 @@ public class PropsManager : MonoBehaviour
     {
         if (spawnNew)
         {
-            //Debug.Log("new bonus");
+            //Debug.Log("new item");
             spawnTimeVal -= Time.deltaTime;
             if (spawnTimeVal <= 0)
             {
                 Spawn();
-                propsNumber++;
+                itemNumber++;
                 spawnTimeVal = 2;
                 spawnNew = false;
-                // Spawn a new one after 2 seconds
+                // Spawn a random new item after 2 seconds
 
             }
             //spawnNew = false;
 
         }
-        HUD.instance.SetPropsNumber(propsGainNumber);
+        HUD.instance.SetItemNumber(itemGainNumber);
     }
 
 
 /*    // Shortcut bar to use props
     public void OnBonusClicked()
     {
-        if (propsGainNumber != 0)
+        if (itemGainNumber != 0)
         {
             playerController.gotSpeedUpPower = true;
-            propsGainNumber--;
+            itemGainNumber--;
         }
     }*/
 

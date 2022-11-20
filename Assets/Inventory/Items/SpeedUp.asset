@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Speed Up
   itemImage: {fileID: 21300000, guid: 7434424e6160df248a44fdf21462d6b3, type: 3}
-  itemHeld: 104
+  itemHeld: 110
   itemPowerType: 1
-  itemInfo: 'GREEN APPLE: Speed up for 10 seconds'
+  itemInfo: 'GREEN APPLE: Speed up for 10 seconds
+
+    No SP consumption required'

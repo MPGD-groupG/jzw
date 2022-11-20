@@ -101,11 +101,9 @@ public class PlayerHP : MonoBehaviour
 
     public void ConsumeHP()
     {
-        // consumeHPByVP = true;
-        
-        Debug.Log("consume HP by VP");
+
         timeBetweenConsumeHPByVP-= Time.deltaTime;
-        if (timeBetweenConsumeHPByVP <= 0)  // Can only have superpowers during superpower time
+        if (timeBetweenConsumeHPByVP <= 0)  // Consume HP after 1 second
         {
             //consumeHPByVP = false;
             currentHP = currentHP - consumeHP;
