@@ -7,7 +7,7 @@ public class Bullet1 : MonoBehaviour
 {
      private void DestoryBullet()
      {
-         Destroy(this.gameObject, 0.35f);
+         Destroy(this.gameObject, 0.05f);
      }
 
     /*private void OnCollisionEnter(Collision other)

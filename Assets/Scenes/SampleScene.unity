@@ -13467,19 +13467,23 @@ PrefabInstance:
       objectReference: {fileID: 8224671516527242480, guid: 1e7ed7bd618f6a14892f5eb42e248ee2, type: 3}
     - target: {fileID: 5309318584187940053, guid: 580729fcdf464944ba3b09865b1a059c, type: 3}
       propertyPath: sightRange
-      value: 8.44
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5309318584187940053, guid: 580729fcdf464944ba3b09865b1a059c, type: 3}
       propertyPath: attackRange
-      value: 2.06
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 7654530091107736403, guid: 580729fcdf464944ba3b09865b1a059c, type: 3}
       propertyPath: m_Speed
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7654530091107736403, guid: 580729fcdf464944ba3b09865b1a059c, type: 3}
+      propertyPath: m_Acceleration
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7654530091107736403, guid: 580729fcdf464944ba3b09865b1a059c, type: 3}
       propertyPath: m_AngularSpeed
-      value: 45
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 7654530091107736403, guid: 580729fcdf464944ba3b09865b1a059c, type: 3}
       propertyPath: m_StoppingDistance
@@ -21096,15 +21100,15 @@ PrefabInstance:
       objectReference: {fileID: 8224671516527242480, guid: 1e7ed7bd618f6a14892f5eb42e248ee2, type: 3}
     - target: {fileID: 5309318584187940053, guid: 580729fcdf464944ba3b09865b1a059c, type: 3}
       propertyPath: sightRange
-      value: 8.44
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5309318584187940053, guid: 580729fcdf464944ba3b09865b1a059c, type: 3}
       propertyPath: attackRange
-      value: 2.06
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 7654530091107736403, guid: 580729fcdf464944ba3b09865b1a059c, type: 3}
       propertyPath: m_Speed
-      value: 15
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 7654530091107736403, guid: 580729fcdf464944ba3b09865b1a059c, type: 3}
       propertyPath: m_Radius
@@ -21112,11 +21116,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7654530091107736403, guid: 580729fcdf464944ba3b09865b1a059c, type: 3}
       propertyPath: m_Acceleration
-      value: 20
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7654530091107736403, guid: 580729fcdf464944ba3b09865b1a059c, type: 3}
       propertyPath: m_AngularSpeed
-      value: 45
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 7654530091107736403, guid: 580729fcdf464944ba3b09865b1a059c, type: 3}
       propertyPath: m_StoppingDistance
