@@ -125,7 +125,7 @@ public class EnemyAI : MonoBehaviour
         {
             //bullet power
             Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-            rb.AddForce(transform.forward * 50.0f, ForceMode.Impulse);
+            rb.AddForce(transform.forward * 1.0f, ForceMode.Impulse);
             rb.AddForce(transform.up * 5.0f, ForceMode.Impulse);
 
             Attacked = true;

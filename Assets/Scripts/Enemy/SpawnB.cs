@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyAI1 : MonoBehaviour
+public class SpawnB : MonoBehaviour
 {
     public NavMeshAgent agent;
-
     public Transform player;
-
+    public Transform home;
     public LayerMask whatIsGround, whatIsPlayer;
 
     //public float health;
@@ -40,6 +39,7 @@ public class EnemyAI1 : MonoBehaviour
     private void Awake()
     {
         player = GameObject.Find("Player").transform;
+        //home = GameObject.Find("PickUp").transform;
         agent = GetComponent<NavMeshAgent>();
     }
 
@@ -66,36 +66,45 @@ public class EnemyAI1 : MonoBehaviour
 
         if (!walkPointSet)
         {
-            Invoke(nameof(ChangeTarget), 1.0f);
+            float randomZ = Random.Range(-walkPointRange, walkPointRange);
+            float randomX = Random.Range(-walkPointRange, walkPointRange);
+            walkPoint = new Vector3(home.position.x * 1.3f + randomX * 2.3f, transform.position.y, home.position.z * 1.3f + randomZ * 2.9f);
+            walkPointSet = true;
         }
 
         if (walkPointSet)
         {
             agent.SetDestination(walkPoint);
-            Invoke(nameof(ChangeTargetB), 5.0f);
+            Invoke(nameof(ChangeTargetB), 2.5f);
         }
 
         if (distanceToWalkPoint.magnitude < 0.2f)
         {
             walkPointSet = false;
-            Invoke(nameof(ChangeTarget), 0.9f);
+            //Invoke(nameof(ChangeTarget), 0.9f);
         }
 
     }
 
-   private void ChangeTarget()
+    private void ChangeTarget()
     {
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
-        walkPoint = new Vector3(transform.position.x * 1.85f + randomX * 2.3f, transform.position.y, transform.position.z * 1.35f + randomZ * 2.9f);
-        walkPoint2 = new Vector3(player.position.x * 2.0f + randomX * 2.3f, transform.position.y, player.position.z * 2.0f + randomZ * 2.9f);
+        walkPoint = new Vector3(home.position.x * 1.85f + randomX * 2.3f, transform.position.y, home.position.z * 1.35f + randomZ * 2.9f);
         walkPointSet = true;
         //agent.SetDestination(walkPoint);
     }
 
     private void ChangeTargetB()
     {
+        walkPoint2 = new Vector3(home.position.x, home.position.y, home.position.z);
         agent.SetDestination(walkPoint2);
+        Invoke(nameof(ChangeTargetC), 2.5f);
+        //walkPointSet = true;
+    }
+
+    private void ChangeTargetC()
+    {
         walkPointSet = false;
     }
 
@@ -129,7 +138,7 @@ public class EnemyAI1 : MonoBehaviour
         {
             //bullet power
             Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-            rb.AddForce(transform.forward * 45f, ForceMode.Impulse);
+            rb.AddForce(transform.forward * 25f, ForceMode.Impulse);
             rb.AddForce(transform.up * 0.5f, ForceMode.Impulse);
 
             Attacked = true;

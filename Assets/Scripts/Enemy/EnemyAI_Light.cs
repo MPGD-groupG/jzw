@@ -28,7 +28,7 @@ public class EnemyAI_Light : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             other.gameObject.SetActive(false);
-            Invoke("Restart", 2f);
+            Invoke("Restart", 1f);
             //SceneManager.LoadScene(0);
         }
     }

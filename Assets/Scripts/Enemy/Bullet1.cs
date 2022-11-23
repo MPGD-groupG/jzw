@@ -3,33 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet1 : MonoBehaviour
 {
-    /* void Start()
-     {
-         Destroy(this.gameObject, 3);
-
-     }
-
-     void OnTriggerEnter(Collider other)
-     {
-         if (other.gameObject.tag == "Player")
-         {
-             PlayerHP playerHP = getComponet<PlayerHP>();
-             playerHP -= 15;
-             Invoke(nameof(DestoryBullet), 0.2f);
-         }
-     }
-
      private void DestoryBullet()
      {
-         Destroy(this.gameObject);
-     }*/
-    void Start()
-    {
-        //Destroy(this.gameObject, 4.0f);
-
-    }
+         Destroy(this.gameObject, 0.35f);
+     }
 
     /*private void OnCollisionEnter(Collision other)
     {
@@ -41,7 +20,7 @@ public class Bullet : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            other.gameObject.GetComponent<PlayerHP>().TakeDamage(22);
+            other.gameObject.GetComponent<PlayerHP>().TakeDamage(10);
             this.gameObject.SetActive(false);
             //Destroy(this.gameObject);
         }

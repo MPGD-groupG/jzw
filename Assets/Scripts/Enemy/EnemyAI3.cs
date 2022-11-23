@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyAI1 : MonoBehaviour
+public class EnemyAI3 : MonoBehaviour
 {
     public NavMeshAgent agent;
 
@@ -21,9 +21,12 @@ public class EnemyAI1 : MonoBehaviour
 
     //Patroling
     public Vector3 walkPoint;
-    public Vector3 walkPoint2;
     public bool walkPointSet = false;
     public float walkPointRange;
+    public GameObject sphere;//range
+    public GameObject target;
+    Vector3 wanderTarget = Vector3.zero;
+    GameObject jitter;
 
     //Attacking
     public float Ainterval;
@@ -46,6 +49,13 @@ public class EnemyAI1 : MonoBehaviour
     private void Start()
     {
         CurrentHP = MaxHP;
+        jitter = Instantiate(sphere);
+    }
+
+    void Seek(Vector3 location)
+    {
+
+        agent.SetDestination(location);
     }
 
     private void Update()
@@ -60,19 +70,19 @@ public class EnemyAI1 : MonoBehaviour
 
     }
 
-    private void Patroling()
+    /*private void Patroling()
     {
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
 
         if (!walkPointSet)
         {
-            Invoke(nameof(ChangeTarget), 1.0f);
+            Invoke(nameof(ChangeTarget), 2.0f);
         }
 
         if (walkPointSet)
         {
-            agent.SetDestination(walkPoint);
-            Invoke(nameof(ChangeTargetB), 5.0f);
+            Invoke(nameof(ChangeTargetB), 1.0f);
+            //agent.SetDestination(walkPoint);
         }
 
         if (distanceToWalkPoint.magnitude < 0.2f)
@@ -81,23 +91,43 @@ public class EnemyAI1 : MonoBehaviour
             Invoke(nameof(ChangeTarget), 0.9f);
         }
 
+    }*/
+
+    private void Patroling()
+    {
+        float wanderRadius = 10.0f;
+        float wanderDistance = 20.0f;
+        float wanderJitter = 1.0f;
+
+        wanderTarget += new Vector3(
+            Random.Range(-1.0f, 1.0f) * wanderJitter,
+            0.0f,
+            Random.Range(-1.0f, 1.0f));
+        wanderTarget.Normalize();
+        wanderTarget *= wanderRadius;
+
+        Vector3 targetLocal = wanderTarget + new Vector3(0.0f, 0.0f, wanderDistance);
+        Vector3 targetWorld = gameObject.transform.InverseTransformVector(targetLocal);
+
+        Debug.DrawLine(transform.position, targetWorld, Color.red);
+        jitter.transform.position = targetWorld;
+        Seek(targetWorld);
     }
 
-   private void ChangeTarget()
+   /*private void ChangeTarget()
     {
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
-        walkPoint = new Vector3(transform.position.x * 1.85f + randomX * 2.3f, transform.position.y, transform.position.z * 1.35f + randomZ * 2.9f);
-        walkPoint2 = new Vector3(player.position.x * 2.0f + randomX * 2.3f, transform.position.y, player.position.z * 2.0f + randomZ * 2.9f);
+        walkPoint = new Vector3(player.position.x * 1.85f + randomX * 2.3f, transform.position.y, player.position.z * 1.35f + randomZ * 2.9f);
         walkPointSet = true;
         //agent.SetDestination(walkPoint);
     }
 
     private void ChangeTargetB()
     {
-        agent.SetDestination(walkPoint2);
+        agent.SetDestination(walkPoint);
         walkPointSet = false;
-    }
+    }*/
 
     /*private void SearchWalkPoint()
     {

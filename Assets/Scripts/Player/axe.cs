@@ -48,6 +48,8 @@ public class axe : MonoBehaviour
         if(other.gameObject.CompareTag("PickUp"))
         {
             other.GetComponent<EnemyAI1>().TakeDamage(damage);
+            other.GetComponent<EnemyAI>().TakeDamage(damage);
+            other.GetComponent<SpawnB>().TakeDamage(damage);
         }
     }
 
