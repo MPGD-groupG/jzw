@@ -12,11 +12,14 @@ public class PlayerVP : MonoBehaviour
     public Image vpBar;
 
 
-    public float maxVP = 100; // Initial VP
-    public float currentVP;
+    public int maxVP = 100; // Initial VP
+    public int currentVP;
 
-    public float consumeVP = 0.5f; // Cost 0.5 SP/s
-    public float restoreVP = 20f; // Restore 20 SP/s
+    public int consumeVP = 5; // Cost 5 SP/s
+
+    // Restore VP
+    public bool gotRestoreVPPower;
+    public int restoreVP = 50; // Restore VP
 
     public float timeBetweenConsume = 1f;
 
@@ -42,12 +45,23 @@ public class PlayerVP : MonoBehaviour
             timeBetweenConsume = 1;
         }
 
+        if (gotRestoreVPPower) // Restore VP
+        {
+            currentVP = currentVP + restoreVP;
+            if (currentVP >= 100) currentVP = 100;
+            gotRestoreVPPower = false;
+        }
+
         // Change vpBar display
         if (currentVP <= 0)
         {
             vpBar.fillAmount = 0;
             playerHP.ConsumeHP();
 
+        }
+        else if (currentVP >= 100)
+        {
+            currentVP = 100;
         }
         else
         {
@@ -59,5 +73,6 @@ public class PlayerVP : MonoBehaviour
     {
         currentVP = currentVP - consumeVP;
     }
+
 
 }

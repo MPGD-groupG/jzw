@@ -20,13 +20,13 @@ public class CraftSlot : MonoBehaviour
     private bool chooseItem;
     public Text resultInformation;
 
-    private float intervalTime = 0.3f;
-
+    // Detect double click
     private float realTime = 0;
     private bool timeContinue = false;
     private bool doubleClick;
+    private float intervalTime = 0.3f;
 
-    public Item [] thisItem;
+    public Item[] thisItem;
     public Inventory playerInventory;
 
     private void Awake()
@@ -70,7 +70,7 @@ public class CraftSlot : MonoBehaviour
         }
         else if (realTime > 0)// Not equal to 0, means in time, double click, stop timing
         {
-            Debug.Log("double click");//
+            // Debug.Log("double click");//
             doubleClick = true;
             realTime = 0;
             timeContinue = false;
@@ -80,33 +80,51 @@ public class CraftSlot : MonoBehaviour
         // Obtain new items
         if (chooseItem && doubleClick)
         {
-                switch (slotItem.itemID)
-                {
-                    case 1: // Create item3 need consume 2 item1
-                        if (playerInventory.itemList.Contains(thisItem[0]) && thisItem[0].itemHeld >= 2)
+            switch (slotItem.itemID)
+            {
+                case 1: // Create item3 (golden apple/ restore VP) need consume 2 item1 (red apple/ restore HP)
+                    // thisItem need to be changed in slot_craft
+                    if (playerInventory.itemList.Contains(thisItem[0]) && thisItem[0].itemHeld >= 2)
+                    {
+                        thisItem[0].itemHeld -= 2; // Consume 2 item1
+                                                   // Create new item in inventory list
+                        if (!playerInventory.itemList.Contains(thisItem[2]))
                         {
-                            thisItem[0].itemHeld -= 2; // Consume 2 item1
-                            // Create new item in inventory list
-                            if (!playerInventory.itemList.Contains(thisItem[2]))
-                            {
-                                playerInventory.itemList.Add(thisItem[2]);
-                                thisItem[2].itemHeld += 1;
-                            }else thisItem[2].itemHeld += 1;
-                        CraftingManager.ShowCraftResult("Crafting success");
+                            playerInventory.itemList.Add(thisItem[2]);
+                            thisItem[2].itemHeld += 1;
+                        }
+                        else thisItem[2].itemHeld += 1;
+                        CraftingManager.ShowCraftResult("Crafte success");
                     }
                     else
                     {
                         CraftingManager.ShowCraftResult("Insufficient materials");
                     }
-                        break; 
-                    case 2: 
-                            // There is currently only one item type that can be generated
-                    break; 
+                    break;
+                case 2: // Create item4 (blue apple/ restore VP) need consume 2 item2 (green apple/ speed up)
 
-                }
+                    if (playerInventory.itemList.Contains(thisItem[1]) && thisItem[1].itemHeld >= 2)
+                    {
+                        thisItem[1].itemHeld -= 2; // Consume 2 item2
+                                                   // Create new item in inventory list
+                        if (!playerInventory.itemList.Contains(thisItem[3]))
+                        {
+                            playerInventory.itemList.Add(thisItem[3]);
+                            thisItem[3].itemHeld += 1;
+                        }
+                        else thisItem[3].itemHeld += 1;
+                        CraftingManager.ShowCraftResult("Crafte success");
+                    }
+                    else
+                    {
+                        CraftingManager.ShowCraftResult("Insufficient materials");
+                    }
+                    break;
 
-                InventoryManager.RefreshItem();
-            
+            }
+
+            InventoryManager.RefreshItem();
+
             //InventoryManager.UpdateItemInfo(slotItem.itemInfo);
 
             chooseItem = false;

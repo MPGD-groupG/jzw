@@ -19,6 +19,7 @@ public class PlayerHP : MonoBehaviour
     // public int PlayerCurrentHP;
     private bool isServer = true;
     private bool isDead;
+    public bool isGod;
 
     // Restore HP
     public bool gotRestoreHPPower;
@@ -29,8 +30,8 @@ public class PlayerHP : MonoBehaviour
     public int consumeHP = 10; // Consume 10 HP/s
 
     private float time;
-    public float superTimeVal = 10; // Superpower Duration
-    public float timeBetweenConsumeHPByVP = 1f; // Deduct Duration
+    public float timeBetweenGod = 5f; // God mode Duration
+    public float timeBetweenConsumeHPByVP = 1f; // Deduct HP Duration
 
     private void Awake()
     {
@@ -51,14 +52,13 @@ public class PlayerHP : MonoBehaviour
         if (gotRestoreHPPower)
         {
             currentHP += 5;
-            gotRestoreHPPower=false;
+            gotRestoreHPPower = false;
         }
 
-/*        if (consumeHPByVP)
+        if (isGod)
         {
-            ConsumeHP();
-        }*/
-
+            TakeDamage();
+        }
 
         // Change hpBar display
         if (currentHP <= 0)
@@ -92,6 +92,18 @@ public class PlayerHP : MonoBehaviour
         }
     }
 
+    public void TakeDamage()
+    {
+        isServer = false;
+        timeBetweenGod -= Time.deltaTime;
+        if (timeBetweenGod <= 0)  // Can only have god mode during limited time
+        {
+            timeBetweenGod = 5;
+            isServer = true;
+            isGod = false;
+        }
+    }
+
 
     public void ShowHPSlider()
     {
@@ -102,8 +114,8 @@ public class PlayerHP : MonoBehaviour
     public void ConsumeHP()
     {
 
-        timeBetweenConsumeHPByVP-= Time.deltaTime;
-        if (timeBetweenConsumeHPByVP <= 0)  // Consume HP after 1 second
+        timeBetweenConsumeHPByVP -= Time.deltaTime;
+        if (timeBetweenConsumeHPByVP <= 0)  // Can only have superpowers during superpower time
         {
             //consumeHPByVP = false;
             currentHP = currentHP - consumeHP;
