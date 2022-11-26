@@ -38,7 +38,7 @@ public class ItemBehavior : MonoBehaviour
             playerTouchedOnce++;
             if (playerTouchedOnce == 1)
             {
-                UIManager.instance.SetScoreText();
+                HUD.instance.SetScoreText();
                 ItemManager.instance.SpawnProps(); // Spawn new item
                 // Debug.Log("destroy pickup");
             }

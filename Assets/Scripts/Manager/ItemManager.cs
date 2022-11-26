@@ -80,7 +80,7 @@ public class ItemManager : MonoBehaviour
             //spawnNew = false;
 
         }
-        HUD.instance.SetItemNumber(itemGainNumber);
+        // HUD.instance.SetItemNumber(itemGainNumber);
     }
 
 

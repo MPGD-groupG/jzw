@@ -227,8 +227,8 @@ public class PlayerController : MonoBehaviour
         // Check if player out of scene
         if (other.gameObject.tag == "Check")
         {
-            // UIManager.instance.checkScene();
-            UIManager.instance.outOfScene = true;
+            // HUD.instance.checkScene();
+            HUD.instance.outOfScene = true;
         }
     }
 

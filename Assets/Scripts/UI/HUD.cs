@@ -1,80 +1,131 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System;
+
 
 public class HUD : MonoBehaviour
 {
 
-    //public GameOver gameOver;
-
-/*    public Text scoreSubText;   // Score text
-    public Text numberEnemySubText;  // Enemy number text*/
-    public Text numberPropSubText;  // Item number text
-
-    private int initialScore = 0;
-    public int currentScore = 0;
-    //public int itemNumber = 0;
-
-    public float timeBetweenUpdate = 10f;
-    private float time;
-    private float allTime;               // Total time played
-    public int min;                      // Total minutes played
-
     public static HUD instance;
 
-    private void Start()
-    {
-        //OnGameOver();
-    }
+    //set total time
+    [SerializeField] private float timer = 5f;
+
+    //time count UI
+    public Text timerText;
+
+    // Gameover UI
+    public Text winloseText;
+    public bool isTimeOut = false;
+    public bool isDead = false;
+    public bool outOfScene = false;
+
+    // Player's score
+    public Text scoreText;
+    private int playerScore;
+
+    public GameObject gameOverMenu;
+    private int winScore = 5; // Score needed to get a win
+
 
     private void Awake()
     {
         instance = this;
+        Time.timeScale = 1f;
+        gameOverMenu.SetActive(false); // Don't display game over menu at first
     }
 
-
-    public void SetItemNumber(int propsNumber)
+    void Update()
     {
-        numberPropSubText.text = propsNumber.ToString();
-    }
+        Timer();
 
-
-/*    public void OnGameOver()
-    {
-        Time.timeScale = 0;
-        if (currentScore > 50)
+        // Can use switch
+        if (playerScore >= winScore)
         {
-            gameOver.ShowWin(currentScore);
-        }
-        else
-            gameOver.ShowLose(currentScore);
-
-    }*/
-
-/*    private void FixedUpdate()
-    {
-        allTime = allTime + Time.deltaTime;
-        min = (int)(allTime) / 60;
-
-        time = time + Time.deltaTime;
-        if (time >= timeBetweenUpdate)
+            Time.timeScale = 0; // stop all
+            gameOverMenu.SetActive(true); // Display the game over menu
+            winloseText.text = "You win";
+        }else if (isTimeOut)
         {
-            time = 0;
-            currentScore = currentScore + (int)(Math.Pow(2, min));  // Time bonus increases as play time grows
-            scoreSubText.text = currentScore.ToString();
+            Time.timeScale = 0; // stop all
+            gameOverMenu.SetActive(true);
+            winloseText.text = "Time is up. You lose";
         }
-    }*/
-
-/*    public int getScore()
-    {
-        return currentScore;
+        else if (isDead)
+        {
+            Time.timeScale = 0; // stop all
+            gameOverMenu.SetActive(true);
+            winloseText.text = "You are dead. You lose";
+        }else if(outOfScene)
+        {
+            Time.timeScale = 0; // stop all
+            gameOverMenu.SetActive(true);
+            winloseText.text = "Out of scene. You lose";
+        }
     }
 
-    public void setSavedScore(int saveDate)
+    public void Restart()
     {
-        currentScore = saveDate;
-        scoreSubText.text = saveDate.ToString();
+        // Reset game
+        SceneManager.LoadScene("SampleScene");
+    }
+
+    public void Quit()
+    {
+        // Quit game
+        Application.Quit();
+
+    }
+
+
+    private void Timer()
+    {
+        if(isTimeOut == false)
+        {
+            
+            timer -= Time.deltaTime;
+            
+            timerText.text = timer.ToString("F2");
+
+            if(timer <=0)
+            {
+                isTimeOut = true;
+                timerText.text = "00:00";
+                winloseText.text = "Dead...";
+                //Invoke("Restart", 2f);
+            }
+        }
+    }
+
+
+    public void SetScoreText()
+    {
+        // Update score
+        playerScore++;
+        scoreText.text = "Score: " + playerScore.ToString();
+
+    }
+
+/*    public void checkState()
+    {
+        // Player is dead
+        isDead = true;
     }*/
+
+/*    public void checkScene()
+    {
+        // Player is out of scene
+        outOfScene = true;
+    }*/
+
+
+    void AlreadyWin()//to avoid wrong win/lose check
+    {
+        gameObject.SetActive(false);
+        Invoke("Restart", 0f);
+    }
+
 
 }
