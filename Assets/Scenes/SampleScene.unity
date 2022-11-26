@@ -23,10 +23,10 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1
+  m_AmbientIntensity: 1.69
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 817068f70afd5e745af45e77a2748e44, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: d02553ea49134ba40a7197380d61a1c3, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -4312,6 +4312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 1975543288}
   player: {fileID: 399503943}
+  home: {fileID: 512616912}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
@@ -4782,6 +4783,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 1975543288}
   player: {fileID: 399503943}
+  home: {fileID: 4047834650423387786}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
@@ -4812,7 +4814,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 1
   m_Speed: 3.5
-  m_Acceleration: 8
+  m_Acceleration: 10
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 2
@@ -6976,6 +6978,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 1975543288}
   player: {fileID: 399503943}
+  home: {fileID: 966264649}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
@@ -7005,11 +7008,11 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1
-  m_Speed: 3.5
-  m_Acceleration: 8
+  m_Speed: 4.5
+  m_Acceleration: 11
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 2
+  m_StoppingDistance: 1.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -9694,6 +9697,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 1975543288}
   player: {fileID: 399503943}
+  home: {fileID: 1843788936}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
@@ -9723,11 +9727,11 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1
-  m_Speed: 3.5
+  m_Speed: 4.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 2
+  m_StoppingDistance: 1.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -13599,6 +13603,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1457665603}
   - component: {fileID: 1457665604}
+  - component: {fileID: 1457665605}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -13632,7 +13637,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.98049814, b: 0.9103774, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -13640,7 +13645,7 @@ Light:
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
-    m_Resolution: 3
+    m_Resolution: 2
     m_CustomResolution: -1
     m_Strength: 1
     m_Bias: 0.05
@@ -13672,7 +13677,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -13683,6 +13688,18 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &1457665605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457665602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e98b675fe10a994ab0bcf8c9ad71239, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1458867753
 GameObject:
   m_ObjectHideFlags: 0
@@ -14227,11 +14244,11 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1
-  m_Speed: 3.5
+  m_Speed: 4.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 2
+  m_StoppingDistance: 1.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -14316,6 +14333,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 1975543288}
   player: {fileID: 399503943}
+  home: {fileID: 1273336509}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
@@ -15522,7 +15540,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1587803058}
   m_LocalRotation: {x: -0.22414385, y: -0.48296294, z: -0.1294095, w: 0.8365163}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 15.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17749,6 +17767,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb09b0365acb9e4ea94e0377c1b849c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timer: 5
+  timerText: {fileID: 0}
+  winloseText: {fileID: 0}
+  isTimeOut: 0
+  isDead: 0
+  outOfScene: 0
+  scoreText: {fileID: 0}
+  gameOverMenu: {fileID: 0}
 --- !u!114 &1779261726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17761,14 +17787,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35b0c867c74400e4384879c6f2254a10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timer: 100
-  timerText: {fileID: 7444570293246115235}
-  winloseText: {fileID: 7444570293770560326}
-  isTimeOut: 0
-  isDead: 0
-  outOfScene: 0
-  scoreText: {fileID: 1621578128}
-  gameOverMenu: {fileID: 140439403}
 --- !u!114 &1779261727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21049,6 +21067,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 1975543288}
   player: {fileID: 399503943}
+  home: {fileID: 1697133033}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
@@ -21078,11 +21097,11 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1
-  m_Speed: 3.5
+  m_Speed: 4.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 2
+  m_StoppingDistance: 1.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -21288,6 +21307,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 1975543288}
   player: {fileID: 399503943}
+  home: {fileID: 1817573327}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
@@ -21317,11 +21337,11 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1
-  m_Speed: 3.5
+  m_Speed: 4.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 2
+  m_StoppingDistance: 1.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1

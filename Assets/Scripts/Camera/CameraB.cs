@@ -24,7 +24,6 @@ public class CameraB : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         float scale = Input.GetAxis("Mouse ScrollWheel");
         if (scale > 0 && Camera.main.fieldOfView < 100 || scale < 0 && Camera.main.fieldOfView > 50)
         {
