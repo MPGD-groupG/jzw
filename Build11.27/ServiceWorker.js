@@ -1,9 +1,9 @@
 const cacheName = "BallC-GroupAssignment-0.02";
 const contentToCache = [
     "Build/Build11.27.loader.js",
-    "Build/Build11.27.framework.js.gz",
-    "Build/Build11.27.data.gz",
-    "Build/Build11.27.wasm.gz",
+    "Build/Build11.27.framework.js",
+    "Build/Build11.27.data",
+    "Build/Build11.27.wasm",
     "TemplateData/style.css"
 
 ];
