@@ -15,21 +15,37 @@ public class axe : MonoBehaviour
     {
         coll3D = GetComponent<MeshCollider>();
     }
-    void OnFire(InputValue value)
-    {
-        anim.SetTrigger("att");
-        StartCoroutine(StartAttack());
+    //void OnFire(InputValue value)
+    //{
+    //    anim.SetTrigger("att");
+    //    StartCoroutine(StartAttack());
 
-        GetComponent<Animator>();
-        //anim = GetComponent<Animator>();
-        //anim.Play("AxeAnim");
-        //anim.Play("attack");
-        Debug.Log("att");
+    //    GetComponent<Animator>();
+    //    
+    //    
+    //    
+    //    Debug.Log("att");
+    void Update()
+    {
+        Attack();
+    }
         
        
         
 
 
+    //}
+    void Attack()
+    {
+        if(Input.GetMouseButtonDown(0))
+        {
+            anim.SetTrigger("att");
+                StartCoroutine(StartAttack());
+
+               GetComponent<Animator>();
+               
+               Debug.Log("att");
+        }
     }
     IEnumerator StartAttack()
     {
@@ -47,15 +63,11 @@ public class axe : MonoBehaviour
     {
         if(other.gameObject.CompareTag("PickUp"))
         {
-            other.GetComponent<EnemyAI1>().TakeDamage(damage);
-            other.GetComponent<EnemyAI>().TakeDamage(damage);
-            other.GetComponent<SpawnB>().TakeDamage(damage);
+            other.GetComponent<Enemy>().TakeDamage(damage);
+            
         }
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

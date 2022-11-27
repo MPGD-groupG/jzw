@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class SpawnB : MonoBehaviour
+public class SpawnB : Enemy
 {
     public NavMeshAgent agent;
     public Transform player;
@@ -16,7 +16,7 @@ public class SpawnB : MonoBehaviour
 
     //public Slider Slider;
 
-    public int CurrentHP;
+    //public int CurrentHP;
 
     //Patroling
     public Vector3 walkPoint;
@@ -32,7 +32,7 @@ public class SpawnB : MonoBehaviour
     //States
     public float sightRange, attackRange;
     public bool InSightRange, InAttackRange;
-    public int damage;
+    //public int damage;
 
 
 
@@ -43,12 +43,12 @@ public class SpawnB : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
     }
 
-    private void Start()
+    public void Start()
     {
         CurrentHP = MaxHP;
     }
 
-    private void Update()
+    public void Update()
     {
         //Check for sight and attack range
         InSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
@@ -165,22 +165,22 @@ public class SpawnB : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, sightRange);
     }
 
-    public void TakeDamage(int damage)
-    {
-        //if (!isServer) return;
-        CurrentHP -= damage;
-        Debug.Log("hp--");
-        //ShowHPSlider();
-        if (CurrentHP <= 0)
-        {
-            Invoke(nameof(DestroyEnemy), 0.1f);
-        }
-    }
+    //public void TakeDamage(int damage)
+    //{
+    //    //if (!isServer) return;
+    //    CurrentHP -= damage;
+    //    Debug.Log("hp--");
+    //    //ShowHPSlider();
+    //    if (CurrentHP <= 0)
+    //    {
+    //        Invoke(nameof(DestroyEnemy), 0.1f);
+    //    }
+    //}
 
-    private void DestroyEnemy()
-    {
-        Destroy(gameObject);
-    }
+    //public void DestroyEnemy()
+    //{
+    //    Destroy(gameObject);
+    //}
 
 
 
