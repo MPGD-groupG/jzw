@@ -12,14 +12,14 @@ public class PlayerVP : MonoBehaviour
     public Image vpBar;
 
 
-    public int maxVP = 100; // Initial VP
-    public int currentVP;
+    public float maxVP = 100; // Initial VP
+    public float currentVP;
 
-    public int consumeVP = 5; // Cost 5 SP/s
+    public float consumeVP = 0.5f; // Cost 0.5 SP/s
 
     // Restore VP
     public bool gotRestoreVPPower;
-    public int restoreVP = 50; // Restore VP
+    public float restoreVP = 50; // Restore VP
 
     public float timeBetweenConsume = 1f;
 

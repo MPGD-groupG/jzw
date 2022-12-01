@@ -92,8 +92,9 @@ public class HUD : MonoBehaviour
             if(timer <=0)
             {
                 isTimeOut = true;
-                timerText.text = "00:00";
-                winloseText.text = "Dead...";
+                //Conflicts with the previous timeout detection
+                //timerText.text = "00:00";
+                //winloseText.text = "Dead...";
                 //Invoke("Restart", 2f);
             }
         }

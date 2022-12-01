@@ -10,11 +10,11 @@ public class PlayerSP : MonoBehaviour
     private GameObject player;
     public Image spBar;
 
-    public int maxSP = 100; // Initial SP
-    public int currentSP;
+    public float maxSP = 100; // Initial SP
+    public float currentSP;
 
-    public int consumeSP = 10; // Cost 10 SP/s
-    public int restoreSP = 20; // Restore 20 SP/s
+    public float consumeSP = 10; // Cost 10 SP/s
+    public float restoreSP = 20; // Restore 20 SP/s
 
     public float timeBetweenConsume = 1f;
 

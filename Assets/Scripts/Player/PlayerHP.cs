@@ -13,8 +13,8 @@ public class PlayerHP : MonoBehaviour
     public Text winloseText;
     public Image hpBar;
 
-    private int maxHP = 100;
-    public int currentHP;
+    private float maxHP = 100;
+    public float currentHP;
 
     // public int PlayerCurrentHP;
     private bool isServer = true;
@@ -23,11 +23,11 @@ public class PlayerHP : MonoBehaviour
 
     // Restore HP
     public bool gotRestoreHPPower;
-    public int restoreHP = 20; // Restore 20 HP/s
+    public float restoreHP = 20; // Restore 20 HP/s
 
     // Consume HP
-    public bool consumeHPByVP;
-    public int consumeHP = 10; // Consume 10 HP/s
+    public bool isConsumeHPByVP;
+    public float consumeHPByVP = 10; // Consume 10 HP/s
 
     private float time;
     public float timeBetweenGod = 5f; // God mode Duration
@@ -117,8 +117,8 @@ public class PlayerHP : MonoBehaviour
         timeBetweenConsumeHPByVP -= Time.deltaTime;
         if (timeBetweenConsumeHPByVP <= 0)  // Can only have superpowers during superpower time
         {
-            //consumeHPByVP = false;
-            currentHP = currentHP - consumeHP;
+            //isConsumeHPByVP = false;
+            currentHP = currentHP - consumeHPByVP;
             timeBetweenConsumeHPByVP = 1;
         }
 
