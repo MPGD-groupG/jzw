@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+
 public class PlayerController : MonoBehaviour
 {
     
@@ -15,11 +16,12 @@ public class PlayerController : MonoBehaviour
     // public float moveSpeed = 10f;
     public float rotateSpeed = 2f;
     public float g = -9.81f;
+    
+
     Vector3 gVelocity;
 
 
     public Vector2 moveValue;
-    public float speed = 0.12f;
     private int count;
     private int numPickups = 8;
     public Text scoreText;
@@ -64,7 +66,12 @@ public class PlayerController : MonoBehaviour
     // Crafting
     public GameObject myCraft;
     bool openCraft;
-
+    public Animator anim;
+    private GameObject weapon;
+    public MeshCollider coll3D;
+    public float cooltime;
+    public int damage;
+    public float StartTime;
 
     private void Awake()
     {
@@ -86,12 +93,17 @@ public class PlayerController : MonoBehaviour
         winloseText.text = "";
         //SetCountText();
         //animation = GetComponent<Animation>();
+        weapon = GameObject.Find("weapon");
+        coll3D = weapon.GetComponent<MeshCollider>();
+        
     }
 
     private void Update()
     {
         OpenMyBag();
         OpenMyCraft();
+        Attack();
+        
     }
 
 
@@ -103,11 +115,12 @@ public class PlayerController : MonoBehaviour
         float v = Input.GetAxisRaw("Vertical");
         Vector3 Direction = new Vector3(h, 0f, v);
 
-        
-        if (Direction.magnitude>0)
+
+        if (Direction.magnitude > 0)
         {
-            float targetAngle = Mathf.Atan2(Direction.x, Direction.z)*Mathf.Rad2Deg+cam.eulerAngles.y;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity,turnSmoothTime);
+            anim.SetBool("run", true);
+            float targetAngle = Mathf.Atan2(Direction.x, Direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
 
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
@@ -162,10 +175,10 @@ public class PlayerController : MonoBehaviour
 
             if (this.ObstacleDetect())   // Obstruction detected, object does not move
             {
-                newMovePosition = - newMovePosition; // 
+                newMovePosition = -newMovePosition; // 
             }
 
-            rigidBody.MovePosition(rigidBody.position + newMovePosition); 
+            rigidBody.MovePosition(rigidBody.position + newMovePosition);
 
             //rigidBody.MovePosition(rigidBody.position+moveDir * Time.deltaTime * moveSpeed); // Eliminate jitter
             //transform.Translate(moveDir*Time.deltaTime*moveSpeed,Space.World);
@@ -179,6 +192,7 @@ public class PlayerController : MonoBehaviour
             //transform.Translate(moveDir * Time.deltaTime * moveSpeed, Space.World);
             //transform.Translate(moveDir.normalized * Time.deltaTime * moveSpeed, Space.World);
         }
+        else { anim.SetBool("run", false); }
         /*if (Input.GetKey(KeyCode.J))
         {
             transform.Rotate(-Vector3.up * Time.deltaTime * rotateSpeed);
@@ -262,6 +276,39 @@ public class PlayerController : MonoBehaviour
         time = 0;
         playerSP.RestoreSP();
     }
+  public void Attack()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            
+            anim.SetTrigger("att");
+            StartCoroutine(StartAttack());
+
+            //GetComponent<Animator>();
+
+            Debug.Log("att");
+        }
+    }
+    IEnumerator StartAttack()
+    {
+        yield return new WaitForSeconds(StartTime);
+        coll3D.enabled = true;
+        StartCoroutine(disableHitbox());
+    }
+    IEnumerator disableHitbox()
+    {
+        yield return new WaitForSeconds(time);
+        coll3D.enabled = false;
+    }
+    // Start is called before the first frame update
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject.CompareTag("PickUp"))
+    //    {
+    //        other.GetComponent<Enemy>().TakeDamage(damage);
+
+    //    }
+    //}
 
 
 }
