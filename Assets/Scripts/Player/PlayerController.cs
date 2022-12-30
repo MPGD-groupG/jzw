@@ -102,7 +102,7 @@ public class PlayerController : MonoBehaviour
     {
         OpenMyBag();
         OpenMyCraft();
-        Attack();
+        
         
     }
 
@@ -276,39 +276,39 @@ public class PlayerController : MonoBehaviour
         time = 0;
         playerSP.RestoreSP();
     }
-  public void Attack()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
+  //public void Attack()
+  //  {
+  //      if (Input.GetMouseButtonDown(0))
+  //      {
             
-            anim.SetTrigger("att");
-            StartCoroutine(StartAttack());
+  //          anim.SetTrigger("att");
+  //          StartCoroutine(StartAttack());
 
-            //GetComponent<Animator>();
+  //          //GetComponent<Animator>();
 
-            Debug.Log("att");
-        }
-    }
-    IEnumerator StartAttack()
-    {
-        yield return new WaitForSeconds(StartTime);
-        coll3D.enabled = true;
-        StartCoroutine(disableHitbox());
-    }
-    IEnumerator disableHitbox()
-    {
-        yield return new WaitForSeconds(time);
-        coll3D.enabled = false;
-    }
-    // Start is called before the first frame update
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.gameObject.CompareTag("PickUp"))
-    //    {
-    //        other.GetComponent<Enemy>().TakeDamage(damage);
+  //          Debug.Log("att");
+  //      }
+  //  }
+  //  IEnumerator StartAttack()
+  //  {
+  //      yield return new WaitForSeconds(StartTime);
+  //      coll3D.enabled = true;
+  //      StartCoroutine(disableHitbox());
+  //  }
+  //  IEnumerator disableHitbox()
+  //  {
+  //      yield return new WaitForSeconds(time);
+  //      coll3D.enabled = false;
+  //  }
+  //  // Start is called before the first frame update
+  //  //private void OnTriggerEnter(Collider other)
+  //  //{
+  //  //    if (other.gameObject.CompareTag("PickUp"))
+  //  //    {
+  //  //        other.GetComponent<Enemy>().TakeDamage(damage);
 
-    //    }
-    //}
+  //  //    }
+  //  //}
 
 
 }
