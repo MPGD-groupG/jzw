@@ -18,11 +18,13 @@ public class UI : MonoBehaviour
     private bool inGame;
     public Text resumeText;
     private int screenType;
+    public GameObject ttl;
 
+    public static UI instance;
 
     void Start()
     {
-
+        instance = this;
     }
 
 
@@ -38,11 +40,6 @@ public class UI : MonoBehaviour
     {
         Time.timeScale = 1f;
         gamePauseMenu.SetActive(false);
-/*        if (inGame)
-        {
-            Time.timeScale = 1f;
-            gamePauseMenu.SetActive(false);
-        }*/
 
     }
 

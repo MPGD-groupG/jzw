@@ -46,23 +46,23 @@ public class HUD : MonoBehaviour
         {
             Time.timeScale = 0; // stop all
             gameOverMenu.SetActive(true); // Display the game over menu
-            winloseText.text = "You win";
+            winloseText.text = "You Win";
         }else if (isTimeOut)
         {
             Time.timeScale = 0; // stop all
             gameOverMenu.SetActive(true);
-            winloseText.text = "Time is up. You lose";
+            winloseText.text = "Time is Up. You Lose";
         }
         else if (isDead)
         {
             Time.timeScale = 0; // stop all
             gameOverMenu.SetActive(true);
-            winloseText.text = "You are dead. You lose";
+            winloseText.text = "You are Dead. You Lose";
         }else if(outOfScene)
         {
             Time.timeScale = 0; // stop all
             gameOverMenu.SetActive(true);
-            winloseText.text = "Out of scene. You lose";
+            winloseText.text = "Out of Scene. You Lose";
         }
     }
 

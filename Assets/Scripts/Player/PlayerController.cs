@@ -8,7 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    
+
+    //CharacterController characterController;
     Rigidbody rigidBody;
     public GameObject visualEffect;
     Vector3 newMovePosition;
@@ -16,7 +17,9 @@ public class PlayerController : MonoBehaviour
     // public float moveSpeed = 10f;
     public float rotateSpeed = 2f;
     public float g = -9.81f;
-    
+    public float gravity = 10f;//gravity for controller test
+    bool isOnGround;// if on the ground
+    float ySpeed;//竖直方向的速度值
 
     Vector3 gVelocity;
 
@@ -76,11 +79,11 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        //characterController = GetComponent<CharacterController>();
         rigidBody = GetComponent<Rigidbody>();
-
         playerSP = GetComponent<PlayerSP>();
         canSpeedUp = true;  // At the beginning the player's stamina value is full
-        
+
         var enemy = GameObject.FindGameObjectWithTag("Enemy");
         enemyTransform = enemy.transform;
 
@@ -88,28 +91,32 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        
+
         count = 0;
         winloseText.text = "";
         //SetCountText();
         //animation = GetComponent<Animation>();
         weapon = GameObject.Find("weapon");
         coll3D = weapon.GetComponent<MeshCollider>();
-        
+
+
+
     }
 
     private void Update()
     {
         OpenMyBag();
         OpenMyCraft();
-        
-        
+
+
     }
 
 
     void FixedUpdate()
     {
-        // OpenMyBag();
+        //OpenMyBag();
+        //isOnGround = characterController.isGrounded;
+        //Drop();
 
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
@@ -134,7 +141,7 @@ public class PlayerController : MonoBehaviour
                 time = time + Time.deltaTime;
                 if (time >= timeBetweenConsume && playerSP.currentSP >= 0)    // Can only be consumed when there is a stamina value left
                 {
-                    ConsumeStamina();
+                    ConsumeSP();
                 }
 
             }
@@ -155,7 +162,7 @@ public class PlayerController : MonoBehaviour
                 time = time + Time.deltaTime;
                 if (time >= timeBetweenConsume && playerSP.currentSP <= 100)  // Can only restore stamina value when player is not running
                 {
-                    RestoreStamina();
+                    AutoRestoreSP();
                 }
             }
             else
@@ -166,7 +173,7 @@ public class PlayerController : MonoBehaviour
                 time = time + Time.deltaTime;
                 if (time >= timeBetweenConsume && playerSP.currentSP <= 100)  // Can only restore stamina value when player is not running
                 {
-                    RestoreStamina();
+                    AutoRestoreSP();
                 }
 
             }
@@ -179,8 +186,11 @@ public class PlayerController : MonoBehaviour
             }
 
             rigidBody.MovePosition(rigidBody.position + newMovePosition);
+/*            Vector3 speed = moveDir * moveSpeed;
+            speed += Vector3.up * ySpeed;
+            characterController.SimpleMove(speed);*/
 
-            //rigidBody.MovePosition(rigidBody.position+moveDir * Time.deltaTime * moveSpeed); // Eliminate jitter
+            //characterController.MovePosition(characterController.position+moveDir * Time.deltaTime * moveSpeed); // Eliminate jitter
             //transform.Translate(moveDir*Time.deltaTime*moveSpeed,Space.World);
             //controller.Move(moveDir * moveSpeed * Time.deltaTime);
             //gVelocity.y+=g* Time.deltaTime;
@@ -198,6 +208,25 @@ public class PlayerController : MonoBehaviour
             transform.Rotate(-Vector3.up * Time.deltaTime * rotateSpeed);
         }*/
     }
+
+    void Drop()
+    {
+        if (!isOnGround)
+        {
+            //ΔV = g * Δt
+            ySpeed -= gravity * Time.deltaTime;
+
+        }
+        else//在地面
+        {
+            if (ySpeed < -1)
+            {
+                ySpeed += gravity * Time.deltaTime;
+            }
+
+        }
+    }
+
 
 
     bool ObstacleDetect()
@@ -265,50 +294,50 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void ConsumeStamina()
+    private void ConsumeSP()
     {
         time = 0;
         playerSP.ConsumSP();
     }
 
-    private void RestoreStamina()
+    private void AutoRestoreSP()
     {
         time = 0;
         playerSP.RestoreSP();
     }
-  //public void Attack()
-  //  {
-  //      if (Input.GetMouseButtonDown(0))
-  //      {
-            
-  //          anim.SetTrigger("att");
-  //          StartCoroutine(StartAttack());
+    //public void Attack()
+    //  {
+    //      if (Input.GetMouseButtonDown(0))
+    //      {
 
-  //          //GetComponent<Animator>();
+    //          anim.SetTrigger("att");
+    //          StartCoroutine(StartAttack());
 
-  //          Debug.Log("att");
-  //      }
-  //  }
-  //  IEnumerator StartAttack()
-  //  {
-  //      yield return new WaitForSeconds(StartTime);
-  //      coll3D.enabled = true;
-  //      StartCoroutine(disableHitbox());
-  //  }
-  //  IEnumerator disableHitbox()
-  //  {
-  //      yield return new WaitForSeconds(time);
-  //      coll3D.enabled = false;
-  //  }
-  //  // Start is called before the first frame update
-  //  //private void OnTriggerEnter(Collider other)
-  //  //{
-  //  //    if (other.gameObject.CompareTag("PickUp"))
-  //  //    {
-  //  //        other.GetComponent<Enemy>().TakeDamage(damage);
+    //          //GetComponent<Animator>();
 
-  //  //    }
-  //  //}
+    //          Debug.Log("att");
+    //      }
+    //  }
+    //  IEnumerator StartAttack()
+    //  {
+    //      yield return new WaitForSeconds(StartTime);
+    //      coll3D.enabled = true;
+    //      StartCoroutine(disableHitbox());
+    //  }
+    //  IEnumerator disableHitbox()
+    //  {
+    //      yield return new WaitForSeconds(time);
+    //      coll3D.enabled = false;
+    //  }
+    //  // Start is called before the first frame update
+    //  //private void OnTriggerEnter(Collider other)
+    //  //{
+    //  //    if (other.gameObject.CompareTag("PickUp"))
+    //  //    {
+    //  //        other.GetComponent<Enemy>().TakeDamage(damage);
+
+    //  //    }
+    //  //}
 
 
 }

@@ -8,14 +8,22 @@ public class ItemManager : MonoBehaviour
 
     private PlayerController playerController;
     private GameObject player;
-    public GameObject[] itemGroup; // item group
+    public GameObject[] itemGroupSafe; // item group
+    public GameObject[] itemGroupApple; // item group
+    public GameObject[] itemGroupHero; // item around hero
+    public GameObject[] itemGroupSnow; // item on the snow field
+
 
     public float spawnTime = 2f;
-    public int itemNumber = 10; // Initial number of bonus
-    public int itemGainNumber = 8; // Initial number of bonus
+    public int itemNumberSafe = 10; // Initial number of item
+    public int itemNumberApple = 30; // Initial number of items
+    public int itemNumberHero = 5; // Initial number of items
+    public int itemNumberSnow = 15; // Initial number of items
+
 
     private ItemBehavior bonusBehavior;
     private float spawnTimeVal = 2; // Generation interval time
+    private float spawnTimeValSafe = 20;
 
     public static ItemManager instance;
     private bool spawnNew;
@@ -27,36 +35,70 @@ public class ItemManager : MonoBehaviour
         playerController = player.GetComponent<PlayerController>();
         // Spawn initial items
         int i = 0;
-        while (i < itemNumber)
+        while (i < itemNumberSafe)
         {
-            Spawn();
+            SpawnSafe();
             i++;
+        }
+        int a = 0;
+        while (a < itemNumberApple)
+        {
+            SpawnApple();
+            a++;
+        }
+/*        int b = 0;
+        while (b < itemNumberHero)
+        {
+            SpawnHero();
+            b++;
+        }*/
+        int c = 0;
+        while (c < itemNumberSnow)
+        {
+            SpawnSnow();
+            c++;
         }
 
     }
 
-
-    /*    // Old spawn for only one item
-        void Spawn()
-        {
-            // Spawn this prop at a random location
-            Instantiate(props, (new Vector3(Random.Range(-60f, 60f), 0.5f, Random.Range(-60f, 60))), spawnPoint.rotation);
-
-        }*/
-
-    public void Spawn()
+    private void SpawnSnow()
     {
-        // Random Index
-        int i = Random.Range(0, itemGroup.Length);
-
-        Instantiate(itemGroup[i],(new Vector3(Random.Range(-60f, 60f), 0.5f, Random.Range(-60f, 60))), Quaternion.identity);
+        int i = Random.Range(0, itemGroupSnow.Length);
+        Instantiate(itemGroupSnow[i], (new Vector3(Random.Range(70f, 260f), 30f, Random.Range(20f, 265f))), Quaternion.identity);
     }
 
+    private void SpawnHero()
+    {
+        int i = Random.Range(0, itemGroupHero.Length);
+        Instantiate(itemGroupHero[i], (new Vector3(Random.Range(player.transform.position.x - 50f, player.transform.position.x + 50f), player.transform.position.y, Random.Range(player.transform.position.z - 50f, player.transform.position.z + 50f))), Quaternion.identity);
+    }
+
+    private void SpawnApple()
+    {
+        int i = Random.Range(0, itemGroupApple.Length);
+        Instantiate(itemGroupApple[i], (new Vector3(Random.Range(276f, 130f), 31.5f, Random.Range(-140f, -0f))), Quaternion.identity);
+    }
+
+    public void SpawnSafe()
+    {
+        // Random Index
+        int i = Random.Range(0, itemGroupSafe.Length);
+
+        Instantiate(itemGroupSafe[i],(new Vector3(Random.Range(120f, 135f), 32f, Random.Range(-95f, -90f))), Quaternion.identity);
+    }
+
+
+    private void Spawn()
+    {
+        int i = Random.Range(0, itemGroupSafe.Length);
+
+        Instantiate(itemGroupSafe[i], (new Vector3(Random.Range(119f, 135f), 31.5f, Random.Range(-80f, -70f))), Quaternion.identity);
+    }
 
     public void SpawnProps()
     {
         spawnNew = true;
-        //itemNumber--; // Current item number decrease 
+        //itemNumberSafe--; // Current item number decrease 
         //itemGainNumber++;
 
     }
@@ -70,8 +112,8 @@ public class ItemManager : MonoBehaviour
             spawnTimeVal -= Time.deltaTime;
             if (spawnTimeVal <= 0)
             {
-                Spawn();
-                itemNumber++;
+                SpawnHero();
+                //itemNumberSafe++;
                 spawnTimeVal = 2;
                 spawnNew = false;
                 // Spawn a random new item after 2 seconds
@@ -80,7 +122,24 @@ public class ItemManager : MonoBehaviour
             //spawnNew = false;
 
         }
-        // HUD.instance.SetItemNumber(itemGainNumber);
+
+        if (itemNumberSafe <= 10)
+        {
+            //Debug.Log("new item");
+            spawnTimeValSafe -= Time.deltaTime;
+            if (spawnTimeValSafe <= 0)
+            {
+                SpawnSafe();
+                itemNumberSafe++;
+                spawnTimeValSafe = 20;
+                spawnNew = false;
+                // Spawn a random new item after 20 seconds
+
+            }
+            //spawnNew = false;
+
+        }
+
     }
 
 

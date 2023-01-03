@@ -26,7 +26,7 @@ public class ItemBehavior : MonoBehaviour
 
     void Update()
     {
-        transform.Rotate(new Vector3(15, 30, 45) * Time.deltaTime);
+        this.transform.Rotate(new Vector3(0, 1 * Time.deltaTime * 50, 0));
     }
 
 
@@ -39,6 +39,7 @@ public class ItemBehavior : MonoBehaviour
             if (playerTouchedOnce == 1)
             {
                 HUD.instance.SetScoreText();
+                UI.instance.ttl.SetActive(false);
                 ItemManager.instance.SpawnProps(); // Spawn new item
                 // Debug.Log("destroy pickup");
             }

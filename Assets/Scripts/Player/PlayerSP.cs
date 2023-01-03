@@ -13,8 +13,9 @@ public class PlayerSP : MonoBehaviour
     public float maxSP = 100; // Initial SP
     public float currentSP;
 
-    public float consumeSP = 10; // Cost 10 SP/s
-    public float restoreSP = 20; // Restore 20 SP/s
+    public float consumeSP = 5; // Cost 5 SP/s
+    public float autoRestoreSP = 5; // Restore 5 SP/s
+    public float itemRestoreSP; // Restore x SP/s
 
     public float timeBetweenConsume = 1f;
 
@@ -38,6 +39,12 @@ public class PlayerSP : MonoBehaviour
         else
         {
             spBar.fillAmount = (float)currentSP / (float)maxSP;
+        }
+
+        if (itemRestoreSP != 0)
+        {
+            currentSP += itemRestoreSP;
+            itemRestoreSP = 0;
         }
     }
 
@@ -65,7 +72,7 @@ public class PlayerSP : MonoBehaviour
 
         if (currentSP < 90)
         {
-            currentSP = currentSP + restoreSP;   // SP restore
+            currentSP = currentSP + autoRestoreSP;   // SP restore
         }
         else
         {

@@ -82,18 +82,18 @@ public class CraftSlot : MonoBehaviour
         {
             switch (slotItem.itemID)
             {
-                case 1: // Create item3 (golden apple/ restore VP) need consume 2 item1 (red apple/ restore HP)
+                case 1: // Create Hotdog need consume 2 Hams
                     // thisItem need to be changed in slot_craft
-                    if (playerInventory.itemList.Contains(thisItem[0]) && thisItem[0].itemHeld >= 2)
+                    if (playerInventory.itemList.Contains(thisItem[2]) && thisItem[2].itemHeld >= 2)
                     {
-                        thisItem[0].itemHeld -= 2; // Consume 2 item1
+                        thisItem[2].itemHeld -= 2; // Consume 2 item1
                                                    // Create new item in inventory list
-                        if (!playerInventory.itemList.Contains(thisItem[2]))
+                        if (!playerInventory.itemList.Contains(thisItem[3]))
                         {
-                            playerInventory.itemList.Add(thisItem[2]);
-                            thisItem[2].itemHeld += 1;
+                            playerInventory.itemList.Add(thisItem[3]);
+                            thisItem[3].itemHeld += 1;
                         }
-                        else thisItem[2].itemHeld += 1;
+                        else thisItem[3].itemHeld += 1;
                         CraftingManager.ShowCraftResult("Crafte success");
                     }
                     else
@@ -101,11 +101,11 @@ public class CraftSlot : MonoBehaviour
                         CraftingManager.ShowCraftResult("Insufficient materials");
                     }
                     break;
-                case 2: // Create item4 (blue apple/ restore VP) need consume 2 item2 (green apple/ speed up)
+                case 2: // Create Hamburger need consume 2 Steaks
 
-                    if (playerInventory.itemList.Contains(thisItem[1]) && thisItem[1].itemHeld >= 2)
+                    if (playerInventory.itemList.Contains(thisItem[7]) && thisItem[7].itemHeld >= 2)
                     {
-                        thisItem[1].itemHeld -= 2; // Consume 2 item2
+                        thisItem[7].itemHeld -= 2; // Consume 2 item2
                                                    // Create new item in inventory list
                         if (!playerInventory.itemList.Contains(thisItem[3]))
                         {

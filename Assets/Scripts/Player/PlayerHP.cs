@@ -23,14 +23,15 @@ public class PlayerHP : MonoBehaviour
 
     // Restore HP
     public bool gotRestoreHPPower;
-    public float restoreHP = 20; // Restore 20 HP/s
+    public float restoreHP; // Restore x HP
+
 
     // Consume HP
     public bool isConsumeHPByVP;
-    public float consumeHPByVP = 10; // Consume 10 HP/s
+    public float consumeHPByVP = 5; // Consume 5 HP/s
 
     private float time;
-    public float timeBetweenGod = 5f; // God mode Duration
+    public float timeBetweenGod = 15f; // God mode Duration
     public float timeBetweenConsumeHPByVP = 1f; // Deduct HP Duration
 
     private void Awake()
@@ -49,10 +50,10 @@ public class PlayerHP : MonoBehaviour
 
     private void Update()
     {
-        if (gotRestoreHPPower)
+        if (restoreHP!=0)
         {
-            currentHP += 5;
-            gotRestoreHPPower = false;
+            currentHP += restoreHP;
+            restoreHP = 0;
         }
 
         if (isGod)
@@ -98,7 +99,7 @@ public class PlayerHP : MonoBehaviour
         timeBetweenGod -= Time.deltaTime;
         if (timeBetweenGod <= 0)  // Can only have god mode during limited time
         {
-            timeBetweenGod = 5;
+            timeBetweenGod = 15;
             isServer = true;
             isGod = false;
         }

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2867b5bb0ed504959bb26d4cfff48960, type: 3}
+  m_Name: Hamburger
+  m_EditorClassIdentifier: 
+  itemName: Hamburger
+  itemImage: {fileID: 21300000, guid: 39aaf69c30a94244da66c1f2507793a2, type: 3}
+  itemHeld: 49
+  itemPowerType: 4
+  itemInfo: 'Hamburger: Immunity from enemy attacks for 15 seconds'

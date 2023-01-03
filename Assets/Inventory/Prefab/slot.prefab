@@ -68,7 +68,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 35
+    m_FontSize: 28
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 2
@@ -308,9 +308,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e8fab8aad1724bfc92769ddae2a77d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemInSlot: {fileID: 126643733381183463}
   slotID: 0
   slotItem: {fileID: 0}
   slotImage: {fileID: 126643733381183458}
   slotNum: {fileID: 126643731474040802}
   slotInfo: 
-  itemInSlot: {fileID: 126643733381183463}

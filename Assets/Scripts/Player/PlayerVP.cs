@@ -19,7 +19,7 @@ public class PlayerVP : MonoBehaviour
 
     // Restore VP
     public bool gotRestoreVPPower;
-    public float restoreVP = 50; // Restore VP
+    public float restoreVP; // Restore VP
 
     public float timeBetweenConsume = 1f;
 
@@ -45,11 +45,11 @@ public class PlayerVP : MonoBehaviour
             timeBetweenConsume = 1;
         }
 
-        if (gotRestoreVPPower) // Restore VP
+        if (restoreVP != 0) // Restore VP
         {
             currentVP = currentVP + restoreVP;
             if (currentVP >= 100) currentVP = 100;
-            gotRestoreVPPower = false;
+            restoreVP = 0;
         }
 
         // Change vpBar display

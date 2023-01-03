@@ -7,6 +7,7 @@ public class Slot : MonoBehaviour
 {
     private PlayerController playerController;
     private PlayerHP playerHP;
+    private PlayerSP playerSP;
     private PlayerVP playerVP;
     private GameObject player;
     public GameObject itemInSlot;
@@ -33,6 +34,7 @@ public class Slot : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerController = player.GetComponent<PlayerController>();
         playerHP = player.GetComponent<PlayerHP>();
+        playerSP = player.GetComponent<PlayerSP>();
         playerVP = player.GetComponent<PlayerVP>();
     }
 
@@ -82,19 +84,29 @@ public class Slot : MonoBehaviour
                 switch (slotItem.itemPowerType)
                 {
                     case 1:
-                        playerController.gotSpeedUpPower = true; ;
+                        playerHP.restoreHP = 5f;
                         break;
                     case 2:
-                        playerHP.gotRestoreHPPower = true;
+                        playerSP.itemRestoreSP = 5f;
                         break;
                     case 3:
-                        playerVP.gotRestoreVPPower = true;
+                        playerHP.restoreHP = 20f;
                         break;
                     case 4:
-                        // Debug.Log("4th power");
                         playerHP.isGod = true;
                         break;
-
+                    case 5:
+                        playerController.gotSpeedUpPower = true;
+                        break;
+                    case 6:
+                        playerVP.restoreVP = 5f;
+                        break;
+                    case 7:
+                        playerSP.itemRestoreSP = 20f;
+                        break;
+                    case 8:
+                        playerVP.restoreVP = 20f;
+                        break;
                 }
                 // playerController.gotSpeedUpPower = true;
             }
