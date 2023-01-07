@@ -141,7 +141,7 @@ public class EnemyAI1 : Enemy
             //bullet power
             Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
             rb.AddForce(transform.forward * 25f, ForceMode.Impulse);
-            rb.AddForce(transform.up * 0.5f, ForceMode.Impulse);
+            rb.AddForce(transform.up * 0.6f, ForceMode.Impulse);
 
             Attacked = true;
             Invoke(nameof(ResetAttack), Ainterval);

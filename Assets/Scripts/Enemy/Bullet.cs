@@ -19,12 +19,12 @@ public class Bullet : MonoBehaviour
              playerHP -= 15;
              Invoke(nameof(DestoryBullet), 0.2f);
          }
-     }
+     }*/
 
      private void DestoryBullet()
      {
-         Destroy(this.gameObject);
-     }*/
+        this.gameObject.SetActive(false);
+    }
     void Start()
     {
         //Destroy(this.gameObject, 4.0f);
@@ -46,9 +46,9 @@ public class Bullet : MonoBehaviour
             //Destroy(this.gameObject);
         }
 
-        if (other.gameObject.tag == "Ground")
+        if (other.gameObject.tag == "Obstacle")
         {
-            this.gameObject.SetActive(false);
+            Invoke(nameof(DestoryBullet), 2.0f);
             //Destroy(this.gameObject);
         }
     }
