@@ -8,18 +8,25 @@ public class ItemManager : MonoBehaviour
 
     private PlayerController playerController;
     private GameObject player;
+    // item group
     public GameObject[] itemGroupSafe; // item group
     public GameObject[] itemGroupApple; // item group
     public GameObject[] itemGroupHero; // item around hero
     public GameObject[] itemGroupSnow; // item on the snow field
+    public GameObject itemBonus; 
+    
+    //item spawn point
+    public GameObject[] appleSpawnPoint;
+    public GameObject[] snowSpawnPoint; 
+    public GameObject[] bonusSpawnPoint;
 
 
     public float spawnTime = 2f;
     public int itemNumberSafe = 10; // Initial number of item
-    public int itemNumberApple = 30; // Initial number of items
-    public int itemNumberHero = 5; // Initial number of items
-    public int itemNumberSnow = 15; // Initial number of items
-
+    public int itemNumberApple = 30; 
+    public int itemNumberHero = 5; 
+    public int itemNumberSnow = 15;
+    public int itemNumberBonus = 10;
 
     private ItemBehavior bonusBehavior;
     private float spawnTimeVal = 2; // Generation interval time
@@ -46,17 +53,17 @@ public class ItemManager : MonoBehaviour
             SpawnApple();
             a++;
         }
-/*        int b = 0;
-        while (b < itemNumberHero)
-        {
-            SpawnHero();
-            b++;
-        }*/
         int c = 0;
         while (c < itemNumberSnow)
         {
             SpawnSnow();
             c++;
+        }
+        int d = 0;
+        while (d < itemNumberBonus)
+        {
+            SpawnBonus();
+            d++;
         }
 
     }
@@ -64,19 +71,27 @@ public class ItemManager : MonoBehaviour
     private void SpawnSnow()
     {
         int i = Random.Range(0, itemGroupSnow.Length);
-        Instantiate(itemGroupSnow[i], (new Vector3(Random.Range(70f, 260f), 30f, Random.Range(20f, 265f))), Quaternion.identity);
+        int x = Random.Range(0, snowSpawnPoint.Length);
+        Instantiate(itemGroupSnow[i], (new Vector3(Random.Range(snowSpawnPoint[x].transform.position.x - 50f, snowSpawnPoint[x].transform.position.x + 50f),
+            snowSpawnPoint[x].transform.position.y,
+            Random.Range(snowSpawnPoint[x].transform.position.z - 50f, snowSpawnPoint[x].transform.position.z + 50f))), Quaternion.identity);
     }
 
     private void SpawnHero()
     {
         int i = Random.Range(0, itemGroupHero.Length);
-        Instantiate(itemGroupHero[i], (new Vector3(Random.Range(player.transform.position.x - 50f, player.transform.position.x + 50f), player.transform.position.y, Random.Range(player.transform.position.z - 50f, player.transform.position.z + 50f))), Quaternion.identity);
+        Instantiate(itemGroupHero[i], (new Vector3(Random.Range(player.transform.position.x - 50f, player.transform.position.x + 50f),
+            player.transform.position.y, 
+            Random.Range(player.transform.position.z - 50f, player.transform.position.z + 50f))), Quaternion.identity);
     }
 
     private void SpawnApple()
     {
         int i = Random.Range(0, itemGroupApple.Length);
-        Instantiate(itemGroupApple[i], (new Vector3(Random.Range(276f, 130f), 31.5f, Random.Range(-140f, -0f))), Quaternion.identity);
+        int x = Random.Range(0, appleSpawnPoint.Length);
+        Instantiate(itemGroupApple[i], (new Vector3(Random.Range(appleSpawnPoint[x].transform.position.x - 50f, appleSpawnPoint[x].transform.position.x + 50f),
+            appleSpawnPoint[x].transform.position.y,
+            Random.Range(appleSpawnPoint[x].transform.position.z - 50f, appleSpawnPoint[x].transform.position.z + 50f))), Quaternion.identity);
     }
 
     public void SpawnSafe()
@@ -85,6 +100,15 @@ public class ItemManager : MonoBehaviour
         int i = Random.Range(0, itemGroupSafe.Length);
 
         Instantiate(itemGroupSafe[i],(new Vector3(Random.Range(120f, 135f), 32f, Random.Range(-95f, -90f))), Quaternion.identity);
+    }
+
+
+    public void SpawnBonus()
+    {
+        int x = Random.Range(0, bonusSpawnPoint.Length);
+        Instantiate(itemBonus, (new Vector3(Random.Range(bonusSpawnPoint[x].transform.position.x - 20f, bonusSpawnPoint[x].transform.position.x + 20f),
+            bonusSpawnPoint[x].transform.position.y,
+            Random.Range(bonusSpawnPoint[x].transform.position.z - 20f, bonusSpawnPoint[x].transform.position.z + 20f))), Quaternion.identity);
     }
 
 
@@ -98,8 +122,6 @@ public class ItemManager : MonoBehaviour
     public void SpawnProps()
     {
         spawnNew = true;
-        //itemNumberSafe--; // Current item number decrease 
-        //itemGainNumber++;
 
     }
 
@@ -108,24 +130,20 @@ public class ItemManager : MonoBehaviour
     {
         if (spawnNew)
         {
-            //Debug.Log("new item");
             spawnTimeVal -= Time.deltaTime;
             if (spawnTimeVal <= 0)
             {
+                // Random resources will be generated near the hero
                 SpawnHero();
-                //itemNumberSafe++;
                 spawnTimeVal = 2;
                 spawnNew = false;
                 // Spawn a random new item after 2 seconds
 
             }
-            //spawnNew = false;
-
         }
 
         if (itemNumberSafe <= 10)
         {
-            //Debug.Log("new item");
             spawnTimeValSafe -= Time.deltaTime;
             if (spawnTimeValSafe <= 0)
             {
@@ -136,25 +154,9 @@ public class ItemManager : MonoBehaviour
                 // Spawn a random new item after 20 seconds
 
             }
-            //spawnNew = false;
-
         }
 
     }
-
-
-/*    // Shortcut bar to use props
-    public void OnBonusClicked()
-    {
-        if (itemGainNumber != 0)
-        {
-            playerController.gotSpeedUpPower = true;
-            itemGainNumber--;
-        }
-    }*/
-
-
-
 
 
 }

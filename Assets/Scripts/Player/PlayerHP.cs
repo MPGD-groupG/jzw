@@ -34,11 +34,14 @@ public class PlayerHP : MonoBehaviour
     public float timeBetweenGod = 15f; // God mode Duration
     public float timeBetweenConsumeHPByVP = 1f; // Deduct HP Duration
 
+    public AudioClip playerDeathAudio;
+    private AudioSource playerAudio;    // Damage sound effects
+
     private void Awake()
     {
         instance = this;
         currentHP = maxHP;
-
+        playerAudio = GetComponent<AudioSource>();
     }
 
 
@@ -78,18 +81,16 @@ public class PlayerHP : MonoBehaviour
     public void TakeDamage(int damage)
     {
         if (!isServer) return;
+        playerAudio.Play(); // Sound effects on when damage is received
+
         currentHP = currentHP - damage;
-        // PlayerCurrentHP -= damage;
         ShowHPSlider();
         if (currentHP <= 0)
         {
+            playerAudio.clip = playerDeathAudio;    // Play death sound effects
+            playerAudio.Play();
             currentHP = 0;
-            // HUD.instance.checkState();
             HUD.instance.isDead = true;
-            /*            this.gameObject.SetActive(false);
-                        winloseText.text = "Dead....";
-                        Invoke("Restart", 1.5f);*/
-
         }
     }
 

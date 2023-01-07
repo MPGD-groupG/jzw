@@ -15,7 +15,7 @@ public class PlayerVP : MonoBehaviour
     public float maxVP = 100; // Initial VP
     public float currentVP;
 
-    public float consumeVP = 0.5f; // Cost 0.5 SP/s
+    public float consumeVP = 0.05f; // Cost 0.05 SP/s
 
     // Restore VP
     public bool gotRestoreVPPower;

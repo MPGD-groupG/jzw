@@ -34,11 +34,22 @@ public class ItemBehavior : MonoBehaviour
     {
         if (other.gameObject == player)
         {
+            if(this.gameObject.CompareTag("Bonus"))
+            {
+                playerTouchedOnce++;
+                if (playerTouchedOnce == 1)
+                {
+                    HUD.instance.SetScoreText(20);
+                    UI.instance.ttl.SetActive(false);
+                    Destroy(this.gameObject);
+
+                }
+            }
             // Only for the 1st touched
             playerTouchedOnce++;
             if (playerTouchedOnce == 1)
             {
-                HUD.instance.SetScoreText();
+                HUD.instance.SetScoreText(1);
                 UI.instance.ttl.SetActive(false);
                 ItemManager.instance.SpawnProps(); // Spawn new item
                 // Debug.Log("destroy pickup");

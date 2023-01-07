@@ -52,10 +52,8 @@ public class PlayerController : MonoBehaviour
     // Restore HP
     Transform enemyTransform;
 
-
-
-
-    public bool gotSpeedUpPower; // Superpower status
+    // Speed up
+    public bool gotSpeedUpPower;
 
     // Check once trigger
     private int playerTouchedOnce = 0;
@@ -91,15 +89,11 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-
         count = 0;
         winloseText.text = "";
-        //SetCountText();
-        //animation = GetComponent<Animation>();
+
         weapon = GameObject.Find("weapon");
         coll3D = weapon.GetComponent<MeshCollider>();
-
-
 
     }
 
@@ -114,9 +108,6 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        //OpenMyBag();
-        //isOnGround = characterController.isGrounded;
-        //Drop();
 
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
@@ -186,47 +177,11 @@ public class PlayerController : MonoBehaviour
             }
 
             rigidBody.MovePosition(rigidBody.position + newMovePosition);
-/*            Vector3 speed = moveDir * moveSpeed;
-            speed += Vector3.up * ySpeed;
-            characterController.SimpleMove(speed);*/
 
-            //characterController.MovePosition(characterController.position+moveDir * Time.deltaTime * moveSpeed); // Eliminate jitter
-            //transform.Translate(moveDir*Time.deltaTime*moveSpeed,Space.World);
-            //controller.Move(moveDir * moveSpeed * Time.deltaTime);
-            //gVelocity.y+=g* Time.deltaTime;
-            //controller.Move(gVelocity * Time.deltaTime);
-            //float y = Camera.main.transform.rotation.eulerAngles.y;
-            //targetDirection = Quaternion.Euler(0, y, 0) * targetDirection;//这里控制移动朝向，有bug
-            //targetDirection = Quaternion.Euler(0, 0, 0) * targetDirection;
-            //controller.Move(moveDir * moveSpeed * Time.deltaTime);
-            //transform.Translate(moveDir * Time.deltaTime * moveSpeed, Space.World);
-            //transform.Translate(moveDir.normalized * Time.deltaTime * moveSpeed, Space.World);
         }
         else { anim.SetBool("run", false); }
-        /*if (Input.GetKey(KeyCode.J))
-        {
-            transform.Rotate(-Vector3.up * Time.deltaTime * rotateSpeed);
-        }*/
+
     }
-
-    void Drop()
-    {
-        if (!isOnGround)
-        {
-            //ΔV = g * Δt
-            ySpeed -= gravity * Time.deltaTime;
-
-        }
-        else//在地面
-        {
-            if (ySpeed < -1)
-            {
-                ySpeed += gravity * Time.deltaTime;
-            }
-
-        }
-    }
-
 
 
     bool ObstacleDetect()
@@ -254,23 +209,12 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    //void Rotating(float h,float v)
-    //{
-    //    Vector3 targetDir = new Vector3(h, 0, v);
-
-    //    // facing
-    //    Quaternion targetRotation = Quaternion.LookRotation(targetDir, Vector3.up);
-
-    //    transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
-    //}
-
     void OnTriggerEnter(Collider other)
     {
 
         // Check if player out of scene
         if (other.gameObject.tag == "Check")
         {
-            // HUD.instance.checkScene();
             HUD.instance.outOfScene = true;
         }
     }
@@ -305,39 +249,5 @@ public class PlayerController : MonoBehaviour
         time = 0;
         playerSP.RestoreSP();
     }
-    //public void Attack()
-    //  {
-    //      if (Input.GetMouseButtonDown(0))
-    //      {
-
-    //          anim.SetTrigger("att");
-    //          StartCoroutine(StartAttack());
-
-    //          //GetComponent<Animator>();
-
-    //          Debug.Log("att");
-    //      }
-    //  }
-    //  IEnumerator StartAttack()
-    //  {
-    //      yield return new WaitForSeconds(StartTime);
-    //      coll3D.enabled = true;
-    //      StartCoroutine(disableHitbox());
-    //  }
-    //  IEnumerator disableHitbox()
-    //  {
-    //      yield return new WaitForSeconds(time);
-    //      coll3D.enabled = false;
-    //  }
-    //  // Start is called before the first frame update
-    //  //private void OnTriggerEnter(Collider other)
-    //  //{
-    //  //    if (other.gameObject.CompareTag("PickUp"))
-    //  //    {
-    //  //        other.GetComponent<Enemy>().TakeDamage(damage);
-
-    //  //    }
-    //  //}
-
-
+ 
 }

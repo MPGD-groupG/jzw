@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 
 public class HUD : MonoBehaviour
@@ -15,6 +16,10 @@ public class HUD : MonoBehaviour
 
     //time count UI
     public Text timerText;
+    public float timeBetweenUpdate = 10f;
+    private float time;
+    private float allTime;               // Total time played
+    public int min;                      // Total minutes played
 
     // Gameover UI
     public Text winloseText;
@@ -27,7 +32,7 @@ public class HUD : MonoBehaviour
     private int playerScore;
 
     public GameObject gameOverMenu;
-    private int winScore = 5; // Score needed to get a win
+    public int winScore = 100; // Score needed to get a win
 
 
     private void Awake()
@@ -66,6 +71,20 @@ public class HUD : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        allTime = allTime + Time.deltaTime;
+        min = (int)(allTime) / 60;
+
+        time = time + Time.deltaTime;
+        if (time >= timeBetweenUpdate)
+        {
+            time = 0;
+            playerScore = playerScore + (int)(Math.Pow(2, min));  // Time bonus increases as play time grows
+            scoreText.text = "Score: " + playerScore.ToString();
+        }
+    }
+
     public void Restart()
     {
         // Reset game
@@ -84,7 +103,6 @@ public class HUD : MonoBehaviour
     {
         if(isTimeOut == false)
         {
-            
             timer -= Time.deltaTime;
             
             timerText.text = timer.ToString("F2");
@@ -92,40 +110,17 @@ public class HUD : MonoBehaviour
             if(timer <=0)
             {
                 isTimeOut = true;
-                //Conflicts with the previous timeout detection
-                //timerText.text = "00:00";
-                //winloseText.text = "Dead...";
-                //Invoke("Restart", 2f);
             }
         }
     }
 
 
-    public void SetScoreText()
+    public void SetScoreText(int score)
     {
         // Update score
-        playerScore++;
+        playerScore += score;
         scoreText.text = "Score: " + playerScore.ToString();
 
-    }
-
-/*    public void checkState()
-    {
-        // Player is dead
-        isDead = true;
-    }*/
-
-/*    public void checkScene()
-    {
-        // Player is out of scene
-        outOfScene = true;
-    }*/
-
-
-    void AlreadyWin()//to avoid wrong win/lose check
-    {
-        gameObject.SetActive(false);
-        Invoke("Restart", 0f);
     }
 
 
