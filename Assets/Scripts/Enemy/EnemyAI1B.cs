@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyAI1 : Enemy
+public class EnemyAI1B : Enemy
 {
     public NavMeshAgent agent;
     public Transform player;

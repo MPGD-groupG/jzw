@@ -59,14 +59,14 @@ public class axe : MonoBehaviour
         coll3D.enabled = false;
     }
     // Start is called before the first frame update
-    private void OnTriggerEnter(Collider other)
+    /*private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("PickUp"))
         {
             other.GetComponent<Enemy>().TakeDamage(damage);
             
         }
-    }
+    }*/
 
     // Update is called once per frame
     

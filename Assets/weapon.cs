@@ -12,6 +12,8 @@ public class weapon : MonoBehaviour
     public int damage;
     public float StartTime;
     public Animator anim1;
+    public bool isAttack = false;
+    public GameObject projectileB;
     void Start()
     {
         anim = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
@@ -31,12 +33,6 @@ public class weapon : MonoBehaviour
     {
         Attack();
     }
-
-
-
-
-
-    //}
     void Attack()
     {
         if (Input.GetMouseButtonDown(0))
@@ -45,7 +41,6 @@ public class weapon : MonoBehaviour
             StartCoroutine(StartAttack());
 
             GetComponent<Animator>();
-
             Debug.Log("att");
         }
     }
@@ -53,20 +48,25 @@ public class weapon : MonoBehaviour
     {
         yield return new WaitForSeconds(StartTime);
         coll3D.enabled = true;
+        isAttack = true;
         StartCoroutine(disableHitbox());
     }
     IEnumerator disableHitbox()
     {
         yield return new WaitForSeconds(time);
         coll3D.enabled = false;
+        isAttack = false;
     }
     // Start is called before the first frame update
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("PickUp"))
         {
-            other.GetComponent<Enemy>().TakeDamage(damage);
-
+            if (isAttack)
+            {
+                other.GetComponent<Enemy>().TakeDamage(damage);
+                isAttack = false;
+            }
         }
     }
 
