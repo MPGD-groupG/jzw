@@ -37,7 +37,7 @@ public class HUD : MonoBehaviour
     // Modes
     public Toggle modeToggle;
     public Text modeText;
-
+    public Text modeScoreText;
 
     private void Awake()
     {
@@ -78,6 +78,7 @@ public class HUD : MonoBehaviour
         if (modeToggle.isOn == false)
         {
             winScore = 100;
+            modeScoreText.text = "*Target 100*";
             modeText.text = "Now in hard mode";
             modeText.color = Color.red;
 
@@ -85,6 +86,7 @@ public class HUD : MonoBehaviour
         else
         {
             winScore = 50;
+            modeScoreText.text = "*Target 50*";
             modeText.text = "Now in easy mode";
             modeText.color = Color.green;
         }
