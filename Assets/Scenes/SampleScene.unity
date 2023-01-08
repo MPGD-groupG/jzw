@@ -9197,7 +9197,7 @@ MonoBehaviour:
   vpBar: {fileID: 238040597}
   maxVP: 100
   currentVP: 0
-  consumeVP: 0.05
+  consumeVP: 0.5
   gotRestoreVPPower: 0
   restoreVP: 50
   timeBetweenConsume: 1
