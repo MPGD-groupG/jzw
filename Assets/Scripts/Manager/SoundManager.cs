@@ -7,7 +7,10 @@ public class SoundManager : MonoBehaviour
 {
     public AudioSource bgmAudio;
     public GameObject player;
-    AudioSource effectAudio;
+    public GameObject weapon;
+    AudioSource effectPlayerAudio;
+    AudioSource effectWeaponAudio;
+
     public Slider bgmSlider;
     public Slider effectSlider;
 
@@ -15,7 +18,8 @@ public class SoundManager : MonoBehaviour
 
     void Start()
     {
-        effectAudio = player.GetComponent<AudioSource>();
+        effectPlayerAudio = player.GetComponent<AudioSource>();
+        effectWeaponAudio = weapon.GetComponent<AudioSource>();
         toggle.isOn = true;
     }
 
@@ -24,12 +28,14 @@ public class SoundManager : MonoBehaviour
     {
         // Volume modification via slider
         bgmAudio.volume = bgmSlider.value;
-        effectAudio.volume = effectSlider.value;
+        effectPlayerAudio.volume = effectSlider.value;
+        effectWeaponAudio.volume = effectSlider.value;
 
         if (toggle.isOn == false)
         {
             bgmAudio.volume = 0;
-            effectAudio.volume = 0;
+            effectPlayerAudio.volume = 0;
+            effectWeaponAudio.volume = 0;
         }
 
     }
@@ -39,6 +45,7 @@ public class SoundManager : MonoBehaviour
     {
         // Turning sound on or off via toggle
         bgmAudio.enabled = true;
-        effectAudio.enabled = true;
+        effectPlayerAudio.enabled = true;
+        effectWeaponAudio.enabled = true;
     }
 }

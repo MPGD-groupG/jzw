@@ -32,13 +32,18 @@ public class HUD : MonoBehaviour
     private int playerScore;
 
     public GameObject gameOverMenu;
-    public int winScore = 100; // Score needed to get a win
+    public int winScore = 50; // Score needed to get a win
+
+    // Modes
+    public Toggle modeToggle;
+    public Text modeText;
 
 
     private void Awake()
     {
         instance = this;
         Time.timeScale = 1f;
+        modeToggle.isOn = true;
         gameOverMenu.SetActive(false); // Don't display game over menu at first
     }
 
@@ -51,24 +56,39 @@ public class HUD : MonoBehaviour
         {
             Time.timeScale = 0; // stop all
             gameOverMenu.SetActive(true); // Display the game over menu
-            winloseText.text = "You Win";
+            winloseText.text = "Congratulations! You Win";
         }else if (isTimeOut)
         {
             Time.timeScale = 0; // stop all
             gameOverMenu.SetActive(true);
-            winloseText.text = "Time is Up. You Lose";
+            winloseText.text = "Time is Up. You Lose...";
         }
         else if (isDead)
         {
             Time.timeScale = 0; // stop all
             gameOverMenu.SetActive(true);
-            winloseText.text = "You are Dead. You Lose";
+            winloseText.text = "You are Dead. You Lose...";
         }else if(outOfScene)
         {
             Time.timeScale = 0; // stop all
             gameOverMenu.SetActive(true);
-            winloseText.text = "Out of Scene. You Lose";
+            winloseText.text = "Out of Scene. You Lose...";
         }
+
+        if (modeToggle.isOn == false)
+        {
+            winScore = 100;
+            modeText.text = "Now in hard mode";
+            modeText.color = Color.red;
+
+        }
+        else
+        {
+            winScore = 50;
+            modeText.text = "Now in easy mode";
+            modeText.color = Color.green;
+        }
+
     }
 
     private void FixedUpdate()

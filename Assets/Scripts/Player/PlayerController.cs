@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
 
-    //CharacterController characterController;
+    CharacterController characterController;
     Rigidbody rigidBody;
     public GameObject visualEffect;
     Vector3 newMovePosition;
@@ -77,8 +77,8 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        //characterController = GetComponent<CharacterController>();
-        rigidBody = GetComponent<Rigidbody>();
+        characterController = GetComponent<CharacterController>();
+        //rigidBody = GetComponent<Rigidbody>();
         playerSP = GetComponent<PlayerSP>();
         canSpeedUp = true;  // At the beginning the player's stamina value is full
 
@@ -108,6 +108,9 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        isOnGround = characterController.isGrounded;
+        Drop();
+
 
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
@@ -176,11 +179,31 @@ public class PlayerController : MonoBehaviour
                 newMovePosition = -newMovePosition; // 
             }
 
-            rigidBody.MovePosition(rigidBody.position + newMovePosition);
-
+            //rigidBody.MovePosition(rigidBody.position + newMovePosition);
+            Vector3 speed = moveDir * moveSpeed;
+            speed += Vector3.up * ySpeed;
+            characterController.SimpleMove(speed);
         }
         else { anim.SetBool("run", false); }
 
+    }
+
+    void Drop()
+    {
+        if (!isOnGround)
+        {
+
+            ySpeed -= gravity * Time.deltaTime;
+
+        }
+        else
+        {
+            if (ySpeed < -1)
+            {
+                ySpeed += gravity * Time.deltaTime;
+            }
+
+        }
     }
 
 

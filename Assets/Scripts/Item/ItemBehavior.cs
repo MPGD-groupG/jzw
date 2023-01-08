@@ -51,7 +51,7 @@ public class ItemBehavior : MonoBehaviour
             {
                 HUD.instance.SetScoreText(1);
                 UI.instance.ttl.SetActive(false);
-                ItemManager.instance.SpawnProps(); // Spawn new item
+                ItemManager.instance.SpawnItem(); // Spawn new item
                 // Debug.Log("destroy pickup");
             }
 

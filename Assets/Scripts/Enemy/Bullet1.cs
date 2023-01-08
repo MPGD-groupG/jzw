@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Bullet1 : MonoBehaviour
 {
+    public int bullet1Damage = 10; 
+
      private void DestoryBullet()
      {
          Destroy(this.gameObject, 0.05f);
@@ -20,7 +22,7 @@ public class Bullet1 : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            other.gameObject.GetComponent<PlayerHP>().TakeDamage(10);
+            other.gameObject.GetComponent<PlayerHP>().TakeDamage(bullet1Damage);
             this.gameObject.SetActive(false);
             //Destroy(this.gameObject);
         }

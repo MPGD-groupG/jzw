@@ -14,8 +14,11 @@ public class weapon : MonoBehaviour
     public Animator anim1;
     public bool isAttack = false;
     public GameObject projectileB;
+    private AudioSource attackAudio;    // Attack sound effects
+
     void Start()
     {
+        attackAudio = GetComponent<AudioSource>();
         anim = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
         coll3D = GetComponent<MeshCollider>();
     }
@@ -39,8 +42,8 @@ public class weapon : MonoBehaviour
         {
             anim.SetTrigger("att");
             StartCoroutine(StartAttack());
-
             GetComponent<Animator>();
+            attackAudio.Play();
             Debug.Log("att");
         }
     }

@@ -6,6 +6,8 @@ public class StateManager : MonoBehaviour
 {
     public static StateManager instance;
     public GameObject gamePauseMenu;
+    public GameObject guidePanel;
+    public GameObject settingPanel;
     public bool isPause;
 
     void Start()
@@ -17,17 +19,6 @@ public class StateManager : MonoBehaviour
 
     void Update()
     {
-
-/*        if (Input.GetKeyDown(KeyCode.Escape) && Pause) // Pause the game and awake game menu
-        {
-            Time.timeScale = 0;
-            gamePauseMenu.SetActive(true);
-        }
-        else if (Input.GetKeyDown(KeyCode.Escape) && !Pause)
-        {
-            Time.timeScale = 1;
-            gamePauseMenu.SetActive(false);
-        }*/
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -47,6 +38,8 @@ public class StateManager : MonoBehaviour
     {
         Time.timeScale = 0;
         gamePauseMenu.SetActive(true);
+        guidePanel.SetActive(false);
+        settingPanel.SetActive(false);
         isPause = false;
     }
 
@@ -54,7 +47,9 @@ public class StateManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         gamePauseMenu.SetActive(false);
-        
+        guidePanel.SetActive(false);
+        settingPanel.SetActive(false);
+
     }
 
 }

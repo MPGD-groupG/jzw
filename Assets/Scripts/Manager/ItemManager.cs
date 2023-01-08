@@ -29,8 +29,8 @@ public class ItemManager : MonoBehaviour
     public int itemNumberBonus = 10;
 
     private ItemBehavior bonusBehavior;
-    private float spawnTimeVal = 2; // Generation interval time
-    private float spawnTimeValSafe = 20;
+    private float itemSpawnTime = 10; // Generation interval time
+    private float itemSpawnTimeSafe = 20;
 
     public static ItemManager instance;
     private bool spawnNew;
@@ -80,9 +80,9 @@ public class ItemManager : MonoBehaviour
     private void SpawnHero()
     {
         int i = Random.Range(0, itemGroupHero.Length);
-        Instantiate(itemGroupHero[i], (new Vector3(Random.Range(player.transform.position.x - 50f, player.transform.position.x + 50f),
+        Instantiate(itemGroupHero[i], (new Vector3(Random.Range(player.transform.position.x - 10f, player.transform.position.x + 10f),
             player.transform.position.y, 
-            Random.Range(player.transform.position.z - 50f, player.transform.position.z + 50f))), Quaternion.identity);
+            Random.Range(player.transform.position.z - 10f, player.transform.position.z + 10f))), Quaternion.identity);
     }
 
     private void SpawnApple()
@@ -119,7 +119,7 @@ public class ItemManager : MonoBehaviour
         Instantiate(itemGroupSafe[i], (new Vector3(Random.Range(119f, 135f), 31.5f, Random.Range(-80f, -70f))), Quaternion.identity);
     }
 
-    public void SpawnProps()
+    public void SpawnItem()
     {
         spawnNew = true;
 
@@ -130,31 +130,39 @@ public class ItemManager : MonoBehaviour
     {
         if (spawnNew)
         {
-            spawnTimeVal -= Time.deltaTime;
-            if (spawnTimeVal <= 0)
+            itemSpawnTime -= Time.deltaTime;
+            if (itemSpawnTime <= 0)
             {
-                // Random resources will be generated near the hero
-                SpawnHero();
-                spawnTimeVal = 2;
+                SpawnApple();
+                SpawnSnow();
+                itemSpawnTime = 10;
                 spawnNew = false;
-                // Spawn a random new item after 2 seconds
-
             }
         }
 
+        // Spawn a new item every 20 seconds around safe place
+        
         if (itemNumberSafe <= 10)
         {
-            spawnTimeValSafe -= Time.deltaTime;
-            if (spawnTimeValSafe <= 0)
+            itemSpawnTimeSafe -= Time.deltaTime;
+            if (itemSpawnTimeSafe <= 0)
             {
                 SpawnSafe();
                 itemNumberSafe++;
-                spawnTimeValSafe = 20;
+                itemSpawnTimeSafe = 20;
                 spawnNew = false;
-                // Spawn a random new item after 20 seconds
 
             }
         }
+
+        // Spawn a new item every 2 seconds around hero
+        itemSpawnTime -= Time.deltaTime;
+        if (itemSpawnTime <= 0)
+        {
+            SpawnHero();
+            itemSpawnTime = 10;
+        }
+
 
     }
 

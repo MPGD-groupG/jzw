@@ -31,6 +31,8 @@ public class UI : MonoBehaviour
     public void OnPlayClicked()
     {
         gamePauseMenu.SetActive(false);
+        screenGuide.SetActive(false);
+        screenSetting.SetActive(false);
         inGame = true;
         resumeText.color = new Color(50f / 256f, 50f / 256f, 50f / 256f);
         Time.timeScale = 1f;
@@ -69,9 +71,9 @@ public class UI : MonoBehaviour
     }
 
 
-    public void OnQuitClicked()
+    public void OnHomeClicked()
     {
-        Application.Quit();
+        SceneManager.LoadScene("StartScene");
     }
 
 }
