@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Hamburger
   itemImage: {fileID: 21300000, guid: 39aaf69c30a94244da66c1f2507793a2, type: 3}
-  itemHeld: 49
+  itemHeld: 10
   itemPowerType: 4
   itemInfo: 'Hamburger: Immunity from enemy attacks for 15 seconds'

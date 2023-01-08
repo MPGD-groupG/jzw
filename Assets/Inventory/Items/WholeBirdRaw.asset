@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: WholeBirdRow
   itemImage: {fileID: 21300050, guid: 142ff8784e552734f9d6a895491d0ae8, type: 3}
-  itemHeld: 142
+  itemHeld: 10
   itemPowerType: 7
   itemInfo: 'Whole Bird Row: Restores 20 SP'

@@ -321,6 +321,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8edfb3ce37698794ba27049017a9cbf2, type: 2}
   - {fileID: 11400000, guid: b089a17152a719d44987ac0d84d93fb6, type: 2}
   - {fileID: 11400000, guid: 25c6013411aec7343b6a355fc4785a24, type: 2}
+  - {fileID: 11400000, guid: 8edfb3ce37698794ba27049017a9cbf2, type: 2}
+  - {fileID: 11400000, guid: b089a17152a719d44987ac0d84d93fb6, type: 2}
+  - {fileID: 11400000, guid: df3d5473c3b265442a0c63a209868235, type: 2}
+  - {fileID: 11400000, guid: 6b3d112f85cd6c349a3dca14fef1d99f, type: 2}
   playerInventory: {fileID: 11400000, guid: 9591e1eaf5467f345ad20ba2c6dfd7c5, type: 2}
 --- !u!1 &7642445747144373373
 GameObject:

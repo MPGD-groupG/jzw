@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Steak
   itemImage: {fileID: 21300000, guid: efef507b5ae94df4e91a6bee1d2e5af3, type: 3}
-  itemHeld: 141
+  itemHeld: 10
   itemPowerType: 8
   itemInfo: 'Steak: Restores 20 VP'
