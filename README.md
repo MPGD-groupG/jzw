@@ -1,11 +1,17 @@
-# Gameplay
-## Control
-Use the "W/A/S/D" keys to move the character.<br>
-Use the right mouse button to move the view.<br>
-Use the mouse wheel to zoom in or out of view.<br>
-Use the "B" key to open or close inventory, and click to use an item.<br>
+# Assets
+## models
+ [Low-Poly Simple Nature Pack] (Created by [Asset Creator])<br>
+ [Simple Foods](Created by [BUBBA])<br>
+ [Free Pixel Food](Created by [HENRY SOFTWARE])<br>
+ [Nature Environment : Tropical Island Lite - Low Poly 3D by JustCreate] (Created by [JUSTCREATE])<br>
+ [Low Poly Farm Pack Lite](Created by [JUSTCREATE])<br>
+ [Fantasy Wooden GUI : Free](Created by [BLACK HAMMER])<br>
+ [FREE Skybox Extended Shader] (Created by [BOXOPHOBIC])<br>
+ [Dog Knight PBR Polyart](Created by [DUNGEON MASON])<br>
+ [Terrain Sample Asset Pack](Created by [Unity Technologies])<br>
+ [Lowpoly Environment - Nature Pack Free](Created by [Polytope Studio])<br>
+ [RPG Monster Duo PBR Polyart](Created by [Dungeon Mason])<br>
 
-## Introduction
-Players need to pick up items to achieve a specified score (5 scores) in a given time to win the game while dodging enemies attacks.<br>
-The enemy will use bullets to attack the player actively, and the player can move to avoid them.<br>
-Props are items, one worth one score. Props are re-generated after being picked up, and players can use them to gain buffs. Props can be carried over to the next round of play.<br>
+## audio 
+ [2D Beginner: Tutorial Resources] (Created by [Unity Technologies])<br>
+
