@@ -1,4 +1,5 @@
 # Assets
+These assets were obtained from the [Unity Asset Store] and are used under the [Asset Store Terms of Service and EULA].<br>
 ## models
  [Low-Poly Simple Nature Pack] (Created by [Asset Creator])<br>
  [Simple Foods](Created by [BUBBA])<br>
