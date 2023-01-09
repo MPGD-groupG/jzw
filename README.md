@@ -1,7 +1,7 @@
 # Assets
 These assets were obtained from the [Unity Asset Store] and are used under the [Asset Store Terms of Service and EULA].<br>
 ## models
- [Low-Poly Simple Nature Pack] (Created by [Asset Creator])<br>
+ [Low-Poly Simple Nature Pack] (Created by [JUSTCREATE])<br>
  [Simple Foods](Created by [BUBBA])<br>
  [Free Pixel Food](Created by [HENRY SOFTWARE])<br>
  [Nature Environment : Tropical Island Lite - Low Poly 3D by JustCreate] (Created by [JUSTCREATE])<br>
