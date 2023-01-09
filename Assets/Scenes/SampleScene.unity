@@ -11434,9 +11434,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Easy mode target score: 100
+  m_text: 'Easy mode target score: 50
 
-    Hard mode target score: 500
+    Hard mode target score: 100
 
 '
   m_isRightToLeft: 0
@@ -41612,7 +41612,7 @@ MonoBehaviour:
   winScore: 100
   modeToggle: {fileID: 1561302991}
   modeText: {fileID: 86142650}
-  modeScoreText: {fileID: 0}
+  modeScoreText: {fileID: 2026192503}
 --- !u!114 &1779261727
 MonoBehaviour:
   m_ObjectHideFlags: 0
