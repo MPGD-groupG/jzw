@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     public float g = -9.81f;
     public float gravity = 10f;//gravity for controller test
     bool isOnGround;// if on the ground
-    float ySpeed;//竖直方向的速度值
+    float ySpeed;//Y speed
 
     Vector3 gVelocity;
 
@@ -91,18 +91,14 @@ public class PlayerController : MonoBehaviour
     {
         count = 0;
         winloseText.text = "";
-
         weapon = GameObject.Find("weapon");
         coll3D = weapon.GetComponent<MeshCollider>();
-
     }
 
     private void Update()
     {
         OpenMyBag();
         OpenMyCraft();
-
-
     }
 
 
@@ -219,7 +215,6 @@ public class PlayerController : MonoBehaviour
                 {
                     return true;
                 }
-
             }
 
         }

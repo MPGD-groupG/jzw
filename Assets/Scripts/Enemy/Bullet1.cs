@@ -12,25 +12,19 @@ public class Bullet1 : MonoBehaviour
          Destroy(this.gameObject, 0.05f);
      }
 
-    /*private void OnCollisionEnter(Collision other)
-    {
-        other.gameObject.GetComponent<PlayerHP>().TakeDamage(18);
-        Destroy(this.gameObject);
-    }*/
-
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player")//clean bullet when hit player
         {
             other.gameObject.GetComponent<PlayerHP>().TakeDamage(bullet1Damage);
             this.gameObject.SetActive(false);
-            //Destroy(this.gameObject);
         }
 
-        if (other.gameObject.tag == "Ground")
+        if (other.gameObject.tag == "Ground")//clean bullet when bullet hit the ground
         {
-            this.gameObject.SetActive(false);
-            //Destroy(this.gameObject);
+            {
+                this.gameObject.SetActive(false);
+            }
         }
     }
 }

@@ -15,26 +15,12 @@ public class axe : MonoBehaviour
     {
         coll3D = GetComponent<MeshCollider>();
     }
-    //void OnFire(InputValue value)
-    //{
-    //    anim.SetTrigger("att");
-    //    StartCoroutine(StartAttack());
-
-    //    GetComponent<Animator>();
-    //    
-    //    
-    //    
-    //    Debug.Log("att");
+    
     void Update()
     {
         Attack();
     }
-        
-       
-        
 
-
-    //}
     void Attack()
     {
         if(Input.GetMouseButtonDown(0))
@@ -58,16 +44,4 @@ public class axe : MonoBehaviour
         yield return new WaitForSeconds(time);
         coll3D.enabled = false;
     }
-    // Start is called before the first frame update
-    /*private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.CompareTag("PickUp"))
-        {
-            other.GetComponent<Enemy>().TakeDamage(damage);
-            
-        }
-    }*/
-
-    // Update is called once per frame
-    
 }

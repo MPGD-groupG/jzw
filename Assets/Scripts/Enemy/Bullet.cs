@@ -7,51 +7,22 @@ public class Bullet : MonoBehaviour
 {
     public int bulletDamage = 22;
 
-    /* void Start()
-     {
-         Destroy(this.gameObject, 3);
-
-     }
-
-     void OnTriggerEnter(Collider other)
-     {
-         if (other.gameObject.tag == "Player")
-         {
-             PlayerHP playerHP = getComponet<PlayerHP>();
-             playerHP -= 15;
-             Invoke(nameof(DestoryBullet), 0.2f);
-         }
-     }*/
-
-    private void DestoryBullet()
+    private void DestoryBullet()//clean bullet
      {
         this.gameObject.SetActive(false);
     }
-    void Start()
-    {
-        //Destroy(this.gameObject, 4.0f);
-
-    }
-
-    /*private void OnCollisionEnter(Collision other)
-    {
-        other.gameObject.GetComponent<PlayerHP>().TakeDamage(18);
-        Destroy(this.gameObject);
-    }*/
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player")//clean bullet when hit player
         {
             other.gameObject.GetComponent<PlayerHP>().TakeDamage(bulletDamage);
             this.gameObject.SetActive(false);
-            //Destroy(this.gameObject);
         }
 
-        if (other.gameObject.tag == "Obstacle")
+        if (other.gameObject.tag == "Obstacle")//clean bullet when bullet hit the ground
         {
             Invoke(nameof(DestoryBullet), 2.0f);
-            //Destroy(this.gameObject);
         }
     }
 }
